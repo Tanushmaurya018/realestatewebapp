@@ -1,11 +1,9 @@
-const express =require("express");
-const {signup} =require("../controllers/userController")
-const {login} =require("../controllers/userController")
-const router=express.Router()
+const express =require('express') ;
+
+const router = express.Router();
 
 
-router.post("/signup",signup);
-router.post("/login",login);
+// router.post('/google', google);
+// router.get('/signout', signOut)
 
-
-module.exports=router;
+module.exports = router;

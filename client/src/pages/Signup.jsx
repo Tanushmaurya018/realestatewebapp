@@ -13,7 +13,7 @@ const Signup = () => {
     password: "",
   });
 
-  const [error,setError]=useState(null)
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const changeUserData = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -23,23 +23,19 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      setLoading(true)
-      const response = await axios.post("/api/user/signup", userData);
+      setLoading(true);
+      const response = await axios.post("/api/auth/signup", userData);
       console.log(response.data);
       if (response.data.message === "User already exist") {
         setError(response.data.message);
         navigate("/signup");
-
-        
-      }
-      else{
+      } else {
         navigate("/login");
-
       }
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -97,7 +93,7 @@ transition-colors duration-500 hover:"
                 >
                   Sign Up
                 </button>
-                {error && <span className="text-red-600">!! {error} !!</span> }
+                {error && <span className="text-red-600">!! {error} !!</span>}
                 <div className="flex items-center gap-2 p-2 text-gray-700">
                   <hr className="w-[100px] h-[5px] bg-gray-700" />
                   <h1>OR</h1>
