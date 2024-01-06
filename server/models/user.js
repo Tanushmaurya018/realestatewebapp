@@ -1,17 +1,17 @@
-import mongoose, { Schema, model } from "mongoose";
+const { Schema, model } =require("mongoose") ;
 
 const userSchema=new Schema({
     username:{
-        type:string,
+        type:String,
         required:true,
     },
     email:{
-        type:string,
+        type:String,
         required:true,
         unique:true,
     },
-    email:{
-        type:string,
+    password:{
+        type:String,
         required:true,
     }
 },{timestamps:true})
