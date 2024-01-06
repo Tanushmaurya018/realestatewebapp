@@ -10,7 +10,7 @@ import Header from "./components/Header";
 
 function App() {
   return (
-    <>
+    <div>
     <Header/>
 <Routes>
 <Route path="/" element={<Home/>}></Route>
@@ -19,7 +19,7 @@ function App() {
 <Route path="about" element={<About/>}></Route>
 <Route path="profile" element={<Profile/>}></Route>
 </Routes>
-    </>
+    </div>
   );
 }
 
