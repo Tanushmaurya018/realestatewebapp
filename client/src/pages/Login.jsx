@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -24,6 +26,7 @@ const Login = () => {
   };
 
   async function fetchData() {
+    setLoading(true)
     const response = await axios.post("api/auth/login", userData, {
       withCredentials: "include",
     });
@@ -34,14 +37,15 @@ const Login = () => {
     } else {
       navigate("/login");
     }
+    setLoading(false)
     console.log(response.data.message);
   }
 
   return (
     <div className="">
-      {/* {loading ? (
+      {loading ? (
         <Loader />
-      ) : ( */}
+      ) : (
 
       <div
         className="container mx-auto p-20 lg:p-16  font-roboto  bg-white bg-opacity-50 h-[100vh]
@@ -110,7 +114,7 @@ const Login = () => {
           </form>
         </div>
       </div>
-      {/* )} */}
+      )} 
     </div>
   );
 };
