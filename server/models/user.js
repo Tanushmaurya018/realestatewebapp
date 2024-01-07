@@ -13,6 +13,11 @@ const userSchema=new Schema({
     password:{
         type:String,
         required:true,
+    },
+    photoURL:{
+        type:String,
+        default:"https://img.freepik.com/premium-vector/avatar-profile-icon_188544-4755.jpg?w=740",
+        required:false,
     }
 },{timestamps:true})
 

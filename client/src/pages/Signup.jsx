@@ -4,6 +4,7 @@ import { FaGoogle, FaLaptopHouse } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import GoogleAuth from "../components/GoogleAuth";
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
@@ -99,9 +100,7 @@ transition-colors duration-500 hover:"
                   <h1>OR</h1>
                   <hr className="w-[100px] h-[5px] bg-gray-700" />
                 </div>
-                <button type="submit" className="bg-gray-900  rounded-full p-5">
-                  <FaGoogle />
-                </button>
+                <GoogleAuth/>
                 <div className="flex justify-center items-center text-gray-700">
                   <h1 className="m-2 ">Already have an account ?</h1>
                   <Link to="/login" className="underline text-blue-500">

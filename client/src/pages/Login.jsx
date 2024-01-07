@@ -5,11 +5,13 @@ import { FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useSelector, useDispatch } from "react-redux";
+
 import {
   signInStart,
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
+import GoogleAuth from "../components/GoogleAuth";
 
 const Login = () => {
   // const [loading, setLoading] = useState(false);
@@ -21,6 +23,7 @@ const Login = () => {
     password: "",
   });
   const dispatch = useDispatch();
+
   const changeUserData = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
@@ -35,7 +38,7 @@ const Login = () => {
   async function fetchData() {
     dispatch(signInStart());
     try {
-      const response = await axios.post("api/auth/login", userData, {
+      const response = await axios.post("/api/auth/login", userData, {
         withCredentials: "include",
       });
 
@@ -49,6 +52,10 @@ const Login = () => {
     } catch (error) {
       dispatch(signInFailure(error));
     }
+  }
+
+  function googleAuth(){
+
   }
   return (
     <div className="">
@@ -103,14 +110,10 @@ const Login = () => {
                   <h1>OR</h1>
                   <hr className="w-[100px]" />
                 </div>
-                <button
-                  // onClick={userInfo}
-                  type="submit"
-                  className="bg-gray-900  rounded-full p-5"
-                >
-                  <FaGoogle />
+
+                  <GoogleAuth/>
                   {/* import { FaGoogle } from "react-icons/fa"; //for React.js */}
-                </button>
+               
                 <div className="flex justify-center items-center text-gray-700">
                   <h1 className="m-2 ">Don't have an account ?</h1>
                   <Link to="/signup" className="underline text-blue-500">
