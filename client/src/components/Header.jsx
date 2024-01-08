@@ -39,8 +39,13 @@ const Header = () => {
         {user?.currentUser ? (
           <div className="flex gap-2 items-center justify-center">
             {/* {user.currentUser.userWoPassword.username} */}
-            <img className="w-[50px] h-[50px] rounded-full" src={user.currentUser?.userWoPassword?.photoURL}></img>
-            </div>
+            <Link to="/profile">
+              <img
+                className="w-[50px] h-[50px] rounded-full"
+                src={user.currentUser?.userWoPassword?.photoURL}
+              ></img>
+            </Link>
+          </div>
         ) : (
           <Link to="/login">
             {" "}

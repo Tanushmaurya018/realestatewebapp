@@ -41,6 +41,8 @@ async function login(req, res) {
     _id: user._id,
     email: user.email,
     username: user.username,
+    photoURL:user.photoURL,
+
   };
   return res
     .cookie("access_token", token, { httpOnly: true })
