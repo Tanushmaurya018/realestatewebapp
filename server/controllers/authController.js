@@ -49,7 +49,6 @@ async function login(req, res) {
 
 async function google(req, res) {
   const { username, email, photoURL } = req.body;
-
   const user = await User.findOne({ email });
 
   if (user) {
@@ -58,7 +57,9 @@ async function google(req, res) {
       _id: user._id,
       email: user.email,
       username: user.username,
+      photoURL:user.photoURL,
     };
+
     return res
       .cookie("access_token", token, { httpOnly: true })
       .json({ message: "Logged In successfully", userWoPassword });
@@ -76,8 +77,19 @@ async function google(req, res) {
   });
 
   const savedUser = await newUser.save();
-  console.log(savedUser);
-  return res.send({ message: "User Created" });
+  console.log("b",savedUser);
+
+  const token = jwt.sign({ _id: newUser._id }, process.env.TOKEN_SECRET);
+  const userWoPassword = {
+    _id: newUser._id,
+    email: newUser.email,
+    username: newUser.username,
+    photoURL:newUser.photoURL,
+  };
+  
+  return res
+    .cookie("access_token", token, { httpOnly: true })
+    .json({ message: "Logged In successfully and User Created ", userWoPassword });
 }
 
 module.exports = {

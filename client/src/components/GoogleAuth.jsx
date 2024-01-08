@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { app } from "../firebase";
-import { signInSuccess }  from "../redux/user/userSlice"
+import { signInSuccess } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const GoogleAuth = () => {
-const navigate =useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   async function fetchData() {
@@ -19,27 +19,28 @@ const navigate =useNavigate();
 
     console.log(result);
 
-    
-
-  
-  
-
     try {
-      const response = await axios.post("/api/auth/google", {
-        username: result.user.displayName,
-        email: result.user.email,
-        photoURL: result.user.photoURL,
-      }, {
-        withCredentials: "include",
-      });
-      console.log(response.data);
+      const response = await axios.post(
+        "/api/auth/google",
+        {
+          username: result.user.displayName,
+          email: result.user.email,
+          photoURL: result.user.photoURL,
+        },
+        {
+          withCredentials: "include",
+        }
+      );
+      console.log("a",response.data);
       dispatch(signInSuccess(response.data));
 
-      if (response.data.user?.currentUser?.message =="User Created" || "Logged In successfully") {
+      if (
+        response.data.user?.currentUser?.message == "User Created" ||
+        "Logged In successfully"
+      ) {
         console.log(response.data.user?.currentUser?.message);
 
-        navigate("/")
-        
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
