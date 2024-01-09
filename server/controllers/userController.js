@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
 async function updateProfile(req, res) {
+  const {username,email,photoURL}=req.body
   if (req.user._id != req.params.id)
     return res.json({ message: "You can only update your own account!" });
   try {
@@ -11,15 +12,20 @@ async function updateProfile(req, res) {
         Number(process.env.SALT)
       );
     }
+    const dupEmail=await User.findOne({email})
+
+    if (dupEmail) {
+      return res.json({message: "This email is already registered",userWoPassword:dupEmail})
+    }
 
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       {
         $set: {
-          username: req.body.username,
-          email: req.body.email,
-          password: req.body.password,
-          photoURL: req.body.photoURL,
+          username ,
+          email,
+          password:req.body.password ,
+          photoURL ,
         },
       },
       { new: true }
@@ -28,14 +34,14 @@ async function updateProfile(req, res) {
     const { password, ...rest } = updatedUser._doc;
     // console.log(updatedUser)
 
-    res.status(200).json({ userWoPassword: rest });
+    res.status(200).json({message:"User Updated" ,userWoPassword: rest });
   } catch (error) {
     console.log(error);
   }
 }
 
 const deleteUser=async(req,res)=>{
-  console.log("a",req.user)
+  // console.log("a",req.user)
   if (req.user._id !== req.params.id)
   return res.json({ message: "You can only delete your account" });
 

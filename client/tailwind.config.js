@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {},
+    "fontFamily":{
+      "Montserrat":["Montserrat","sans-serif"],
+      "Manrope":["Manrope","sans-serif"],
+    }
   },
   plugins: [],
 }

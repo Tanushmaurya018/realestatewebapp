@@ -29,10 +29,12 @@ async function login(req, res) {
   const user = await User.findOne({ email });
 
   if (!user) {
+    console.log(user)
     return res.json({ message: "User doesn't exists" });
   }
   const validatePassword = bcrypt.compareSync(password, user.password);
   if (!validatePassword) {
+    console.log("Wrong")
     return res.json({ message: "Wrong credentials" });
   }
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
@@ -89,7 +91,7 @@ async function google(req, res) {
   
   return res
     .cookie("access_token", token, { httpOnly: true })
-    .json({ message: "Logged In successfully and User Created ", userWoPassword });
+    .json({ message: "User Created and Logged In successfully", userWoPassword });
 }
 
 const logOut = (req, res) => {

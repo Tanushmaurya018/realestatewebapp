@@ -9,8 +9,8 @@ import {
 } from "../redux/user/userSlice";
 
 const Header = () => {
-  const user = useSelector((state) => state.user);
-  console.log(user);
+  const {currentUser} = useSelector((state) => state.user);
+  console.log(currentUser);
   const dispatch = useDispatch();
 
   return (
@@ -36,16 +36,15 @@ const Header = () => {
             <li className="">About</li>
           </Link>
         </div>
-        {user?.currentUser ? (
-          <div className="flex gap-2 items-center justify-center">
-            {user.currentUser.userWoPassword.username}
-            <Link to="/profile">
+        {currentUser?.userWoPassword != null ? (
+            <Link to="/profile" className="flex gap-2 items-center justify-center" >
+           
+           <h1> {currentUser.userWoPassword?.username}</h1>
               <img
                 className="w-[50px] h-[50px] rounded-full"
-                src={user.currentUser?.userWoPassword?.photoURL}
+                src={currentUser?.userWoPassword?.photoURL}
               ></img>
             </Link>
-          </div>
         ) : (
           <Link to="/login">
             {" "}

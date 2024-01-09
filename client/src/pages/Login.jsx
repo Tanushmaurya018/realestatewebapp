@@ -17,7 +17,7 @@ import GoogleAuth from "../components/GoogleAuth";
 const Login = () => {
   // const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(null);
-  const user=useSelector((state)=>state.user)
+  const {currentUser}=useSelector((state)=>state.user)
 
   const [userData, setUserData] = useState({
     email: "",
@@ -37,8 +37,8 @@ const Login = () => {
   };
 
   async function fetchData() {
-    dispatch(signInStart());
     try {
+      dispatch(signInStart());
       const response = await axios.post("/api/auth/login", userData, {
         withCredentials: "include",
       });
@@ -60,7 +60,7 @@ const Login = () => {
   }
   return (
     <div className="">
-      {user.loading ? (
+      {currentUser?.loading ? (
         <Loader />
       ) : (
         <div
@@ -93,10 +93,12 @@ const Login = () => {
                 className={` italic text-white text-xl lg:text-2xl px-5 py-2 rounded-full  bg-opacity-60`}
                 onChange={changeUserData}
                 required
+
+
               ></input>
-              {/* {user == "Wrong Password" && (
-                <label className="text-red-500">{user}</label>
-              )} */}
+              {currentUser?.message != "Logged In successfully" && (
+                <label className="text-red-500">{currentUser?.message}</label>
+              )}
               <div className="flex flex-col items-center">
                 <button
                   type="submit"
