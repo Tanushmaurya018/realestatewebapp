@@ -92,8 +92,13 @@ async function google(req, res) {
     .json({ message: "Logged In successfully and User Created ", userWoPassword });
 }
 
+const logOut = (req, res) => {
+  return res.clearCookie("access_token").json({ message: "Logged Out" });
+};
+
 module.exports = {
   signup,
   login,
   google,
+  logOut,
 };
