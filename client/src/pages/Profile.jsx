@@ -86,6 +86,7 @@ const Profile = () => {
       handleFileUpload(file);
     }
   }, [file]);
+  console.log(currentUser.message)
   return (
     <div className="container bg-purple-100 mx-auto  flex flex-col justify-center items-center p-2 gap-2 ">
       <div className="h-full w-[1200px] flex flex-col items-center p-8 gap-3 bg-white bg-opacity-40 backdrop-blur rounded-2xl shadow-xl border-2 border-gray-300">
@@ -165,8 +166,9 @@ const Profile = () => {
               onChange={changeUserData}
               placeholder="New Password"
             />
-            {currentUser.message != "Logged In successfully" || "User Created and Logged In successfully" && 
-            <label className={`${currentUser.message == "User Updated"? "text-green-600" : "text-red-500" } text-xl `}>!! {currentUser.message} !!</label>}
+            {currentUser.message != ("Logged In successfully" || "User Created and Logged In successfully") && 
+             <label className={`${currentUser.message == "User Updated"? "text-green-600" : "text-red-500" } text-xl `}>!! {currentUser.message} !!
+             </label>} 
             </div>
 
             <div>
