@@ -14,7 +14,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   return (
-    <header className="container mx-auto bg-gray-300 h-[70px] flex justify-between items-center p-3 gap-2">
+    <header className=" container mx-auto bg-gray-300 h-[70px] flex justify-between items-center p-3 gap-2">
       <Link to="/">
         <h1 className="text-lg md:text-3xl ">Real Estate</h1>
       </Link>
@@ -22,7 +22,7 @@ const Header = () => {
       <div className="flex justify-center items-center gap-1">
         <input
           type="text"
-          className="w-[150px] md:w-[800px] h-[20px] md:h-[40px] p-4 rounded-full text-lg  md:text-xl items-center justify-center "
+          className="w-[150px] md:w-[600px] h-[20px] md:h-[40px] p-4 rounded-full text-lg  md:text-xl items-center justify-center "
           placeholder="Search..."
         ></input>
         <button>
@@ -48,7 +48,7 @@ const Header = () => {
         ) : (
           <Link to="/login">
             {" "}
-            <li className="text-lg md:text-2xl rounded-full bg-blue-900 px-3 md:px-4 py-1 text-white">
+            <li className="font-Montserrat text-xl rounded-full hover:px-16 text-white bg-green-600 hover:bg-white hover:text-black transition-all ease-linear p-3">
               Log In
             </li>
           </Link>

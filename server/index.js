@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cookieParser=require("cookie-parser")
 const userRouter=require("./routes/userRoute")
 const authRouter=require("./routes/authRouter")
+const listingRouter=require("./routes/listingRouter")
 dotenv.config();
 const cors=require("cors");
 const { verifyToken } = require("./services/verifyToken");
@@ -16,6 +17,7 @@ app.use(cookieParser())
 // app.use(verifyToken())
 app.use("/api/user",userRouter)
 app.use("/api/auth",authRouter)
+app.use("/api/listing",listingRouter)
 
 app.use((err,req,res,next)=>{
     const statuscode=err.statuscode || 500;

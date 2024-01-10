@@ -7,11 +7,16 @@ import About from "./pages/About";
 import Profile from "./pages/Profile";
 import Header from "./components/Header";
 import PrivateRoutes from "./PrivateRoutes";
+import bg from "./assets/profileAndAuthBgvideo.mp4"
 
 function App() {
   return (
     <div>
+
+      <div className="">
       <Header />
+
+      </div>
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="login" element={<Login />}></Route>

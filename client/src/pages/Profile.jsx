@@ -19,8 +19,8 @@ import {
   deleteUserStart,
   deleteUserSuccess,
 } from "../redux/user/userSlice";
-import { current } from "@reduxjs/toolkit";
-
+import { FaCamera } from "react-icons/fa";
+import bg from "../assets/profileAndAuthBgvideo.mp4";
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
@@ -33,7 +33,6 @@ const Profile = () => {
   };
 
   // console.log(formData);
-
 
   const handleSubmit = async () => {
     dispatch(updateUserStart());
@@ -86,10 +85,20 @@ const Profile = () => {
       handleFileUpload(file);
     }
   }, [file]);
-  console.log(currentUser.message)
+  console.log(currentUser.message);
   return (
-    <div className="container bg-purple-100 mx-auto  flex flex-col justify-center items-center p-2 gap-2 ">
-      <div className="h-full w-[1200px] flex flex-col items-center p-8 gap-3 bg-white bg-opacity-40 backdrop-blur rounded-2xl shadow-xl border-2 border-gray-300">
+    <div className=" container  mx-auto  flex flex-col justify-center items-center p-2 gap-2 h-full ">
+      {/* <div className="fixed z-[-10] flex flex-col p-[40px] h-full w-full gap-20">
+          <hr className="bg-gray-400 w-full h-[20px]" />
+          <hr className="bg-gray-400 w-full h-[20px]" />
+          <hr className="bg-gray-400 w-full h-[20px]" />
+          <hr className="bg-gray-400 w-full h-[20px]" />
+          <hr className="bg-gray-400 w-full h-[20px]" />
+          <hr className="bg-gray-400 w-full h-[20px]" />
+          <hr className="bg-gray-400 w-full h-[20px]" />
+
+        </div> */}
+      <div className="h-full w-[1500px] flex flex-col justify-center items-center p-8 gap-3 bg-gray-200 bg-opacity-70 backdrop-blur rounded-2xl shadow-xl border-2 border-gray-300">
         <h1 className="text-5xl font-Montserrat">YOUR PROFILE</h1>
 
         <div className="flex flex-row-reverse w-full gap-24  h-full justify-evenly">
@@ -100,9 +109,11 @@ const Profile = () => {
                 src={formData.photoURL || currentUser.userWoPassword.photoURL}
                 alt="User Profile"
               />
+
               <hr className=" bg-blue-600 absolute h-[80px] w-full bottom-0" />
-              <span className="absolute right-0 left-0 bottom-[30px] text-center text-4xl text-white underlines text-md">
-                Update
+
+              <span className="absolute  bottom-[15px] right-[103px] text-center text-white ">
+                <FaCamera className="text-5xl text-gray-300" />
               </span>
               <input
                 type="file"
@@ -130,8 +141,6 @@ const Profile = () => {
           </div>
 
           <div className="flex flex-col gap-5 justify-between w-3/4 ">
-
-
             <div className="p-2 flex flex-col gap-6">
               <div className="flex gap-5 items-end font-Manrope text-4xl border-b-4 pb-2">
                 <label className="text-5xl font-bold">Name :</label>
@@ -141,34 +150,42 @@ const Profile = () => {
                 <label className="text-5xl font-bold">E-Mail :</label>
                 <h1>{currentUser.userWoPassword.email}</h1>
               </div>{" "}
-
             </div>
 
-              <h1 className="text-3xl font-thin">Update Profile :</h1>
+            <h1 className="text-3xl font-thin">Update Profile :</h1>
             <div className="p-2 flex flex-col gap-5 ">
-
-            <input
-              className="text-xl px-1 bg-transparent border-b-2 border-gray-500 mt-4 focus:outline-none w-full"
-              name="username"
-              onChange={changeUserData}
-              placeholder={currentUser.userWoPassword.username}
-            />
-            <input
-              className="text-xl px-1 bg-transparent border-b-2 border-gray-500 mt-2 focus:outline-none w-full"
-              name="email"
-              onChange={changeUserData}
-              placeholder={currentUser.userWoPassword.email}
-            />
-            <input
-              type="password"
-              className="text-xl  bg-transparent border-b-2 border-gray-500 mt-2 focus:outline-none w-full"
-              name="password"
-              onChange={changeUserData}
-              placeholder="New Password"
-            />
-            {currentUser.message != ("Logged In successfully" || "User Created and Logged In successfully") && 
-             <label className={`${currentUser.message == "User Updated"? "text-green-600" : "text-red-500" } text-xl `}>!! {currentUser.message} !!
-             </label>} 
+              <input
+                className="text-xl px-1 bg-transparent border-b-2 border-gray-500 mt-4 focus:outline-none w-full focus:bg-transparent"
+                name="username"
+                onChange={changeUserData}
+                placeholder={currentUser.userWoPassword.username}
+              />
+              <input
+                className="text-xl px-1 bg-transparent border-b-2 border-gray-500 mt-2 focus:outline-none w-full focus:bg-transparent"
+                name="email"
+                onChange={changeUserData}
+                placeholder={currentUser.userWoPassword.email}
+              />
+              <input
+                type="password"
+                className="text-xl  bg-transparent border-b-2 border-gray-500 mt-2 focus:outline-none w-full focus:bg-transparent"
+                name="password"
+                onChange={changeUserData}
+                placeholder="New Password"
+              />
+              {currentUser.message !=
+                ("Logged In successfully" ||
+                  "User Created and Logged In successfully") && (
+                <label
+                  className={`${
+                    currentUser.message == "User Updated"
+                      ? "text-green-600"
+                      : "text-red-500"
+                  } text-xl `}
+                >
+                  !! {currentUser.message} !!
+                </label>
+              )}
             </div>
 
             <div>
