@@ -21,6 +21,7 @@ import {
 } from "../redux/user/userSlice";
 import { FaCamera } from "react-icons/fa";
 import bg from "../assets/profileAndAuthBgvideo.mp4";
+import { Link } from "react-router-dom";
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
@@ -196,9 +197,11 @@ const Profile = () => {
                 >
                   Update Profile
                 </button>
+                <Link to="/createlisting">
                 <button className="font-Montserrat text-xl rounded-full px-16 text-white bg-blue-600 hover:bg-white hover:text-black transition ease-linear p-3">
                   Create Listing
                 </button>
+                </Link>
               </div>
               <div className="flex text-red-600 text-xl w-full justify-between mt-4">
                 <h1
