@@ -1,5 +1,5 @@
 import React from "react";
-
+import defaultListPic from "../assets/defaultListPic.png"
 const CreateListing = () => {
   return (
     <div className="container mx-auto p-2 h-full w-full">
@@ -84,10 +84,19 @@ const CreateListing = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-center items-center">image</div>
+
+
+          <div className="flex flex-col justify-center items-center border-2 gap-5 border-red-200 p-5" >
+            <img width="400px" height="400px" src={defaultListPic} className=" bg-cover "></img>
+            <input type="file" className="relative opacity-70 bg-purple-300 px-5 py-3 rounded-full"></input>
+            {/* <label className="absolute bottom-10">Upload </label> */}
+          </div>
+
+
+
         </div>
-        <div>
-          <button className="font-Montserrat text-xl rounded-full px-16 text-white bg-green-600 hover:bg-white hover:text-black transition ease-linear p-3">
+        <div className="flex justify-end">
+          <button className="font-Montserrat  text-xl rounded-full px-16 text-white bg-green-600 hover:bg-white hover:text-black transition ease-linear p-3">
             Create
           </button>
         </div>
