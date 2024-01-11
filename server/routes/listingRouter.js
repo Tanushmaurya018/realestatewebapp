@@ -1,9 +1,9 @@
 const express =require("express");
-const { uploadListing } = require("../controllers/listingController");
+const { createListing } = require("../controllers/listingController");
 const { verifyToken } = require("../services/verifyToken");
 
 const router=express.Router()
 
-router.post("/upload",verifyToken,uploadListing)
+router.post("/createlisting",verifyToken,createListing)
 
 module.exports = router;

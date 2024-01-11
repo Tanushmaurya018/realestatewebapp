@@ -2,7 +2,7 @@ const { Schema, model, Model } = require("mongoose");
 
 const listSchema = new Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
     },
@@ -16,38 +16,42 @@ const listSchema = new Schema(
       type: String,
       required: true,
     },
-    regularPrice: {
+    regularprice: {
       type: String,
       required: true,
     },
-    discountedPrice: {
+    discountedprice: {
       type: String,
       required: true,
     },
     bedroom: {
-      type: Number,
+      type: String,
       required: true,
     },
     bathroom: {
-      type: Number,
+      type: String,
       required: true,
     },
     furnished: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     parking: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     type: {
-      type: Boolean,
-      required: true,
+      type: String,
+      required: false,
     },
     imageURL: {
       type: Array,
-      required: true,
+      required: false,
     },
+    author:{
+      type:Schema.Types.ObjectId,
+      ref:"User"
+    }
   },
   { timestamps: true }
 );
