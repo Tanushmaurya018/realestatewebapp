@@ -49,7 +49,7 @@ const Login = () => {
         navigate("/login");
       }
       dispatch(signInSuccess(response.data));
-      console.log(response.data.message);
+      // console.log(response.data.message);
     } catch (error) {
       dispatch(signInFailure(error));
     }

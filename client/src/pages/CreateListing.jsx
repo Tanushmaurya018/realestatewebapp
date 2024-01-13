@@ -8,7 +8,9 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+
 import { formatProdErrorMessage } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 const CreateListing = () => {
   const [files, setFiles] = useState([]);
   const [imageUploadError, setImageUploadError] = useState(false);
@@ -27,6 +29,7 @@ const CreateListing = () => {
     discountedprice: "5",
     imageUrls: [],
   });
+  const navigate=useNavigate()
 
   const uploadImage = () => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 5) {
@@ -96,6 +99,8 @@ const CreateListing = () => {
     try {
       const response = await axios.post("/api/listing/createlisting", formData);
       console.log(response.data);
+      navigate("/profile")
+
     } catch (error) {
       console.log(error);
     }

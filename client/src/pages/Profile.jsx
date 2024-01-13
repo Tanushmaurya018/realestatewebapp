@@ -9,6 +9,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import axios from "axios";
+
 import {
   updateUserFailure,
   updateUserStart,
@@ -21,10 +22,11 @@ import {
 } from "../redux/user/userSlice";
 import { FaCamera } from "react-icons/fa";
 import bg from "../assets/profileAndAuthBgvideo.mp4";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
+  const [userListings, setUserListings] = useState([]);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
@@ -81,24 +83,71 @@ const Profile = () => {
     dispatch(deleteUserSuccess());
     console.log(response.data);
   };
+
+  const handleListing = () => {
+    try {
+      axios
+        .get(`/api/user/list/${currentUser.userWoPassword._id}`)
+        .then((res) => {
+          console.log(res.data);
+          setUserListings(res.data);
+        });
+      console.log("wdwd", userListings);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const deleteList = async (listingId) => {
+  //   console.log(listingId)
+  //   console.log(userListings.data[0]._id)
+  //   try {
+  //     // const response = await axios.post(`/api/user/list/delete/${listingId}`);
+  //     // console.log(response.data);
+  //     setUserListings((prev)=>prev.data.filter((_,id)=>id !== listingId));
+  //     const a=userListings.data.filter((_,id)=> listingId !== id)
+  //     console.log("u",userListings);
+  //     console.log("a",a);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const deleteList = async (listingId) => {
+    console.log("Listing ID:", listingId);
+    console.log("Original User Listings:", userListings);
+  
+    try {
+       const response = await axios.post(`/api/user/list/delete/${listingId}`);
+       console.log(response.data);
+      setUserListings((prev) => {
+        const updatedListings = prev.data.filter((item) => item._id !== listingId);
+        console.log("Updated User Listings:", updatedListings);
+        return { data: updatedListings };
+      }, () => {
+        // Actions to perform after the state has been updated
+        console.log("State has been updated:", userListings);
+  
+        // You can perform any additional actions here
+      });
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+  
+  
+
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
     }
   }, [file]);
+  useEffect(() => {
+    handleListing();
+  }, []);
   console.log(currentUser.message);
   return (
     <div className=" container  mx-auto  flex flex-col justify-center items-center p-2 gap-2 h-full ">
-      {/* <div className="fixed z-[-10] flex flex-col p-[40px] h-full w-full gap-20">
-          <hr className="bg-gray-400 w-full h-[20px]" />
-          <hr className="bg-gray-400 w-full h-[20px]" />
-          <hr className="bg-gray-400 w-full h-[20px]" />
-          <hr className="bg-gray-400 w-full h-[20px]" />
-          <hr className="bg-gray-400 w-full h-[20px]" />
-          <hr className="bg-gray-400 w-full h-[20px]" />
-          <hr className="bg-gray-400 w-full h-[20px]" />
-
-        </div> */}
       <div className="h-full w-[1500px] flex flex-col justify-center items-center p-8 gap-3 bg-gray-200 bg-opacity-70 backdrop-blur rounded-2xl shadow-xl border-2 border-gray-300">
         <h1 className="text-5xl font-Montserrat">YOUR PROFILE</h1>
 
@@ -198,9 +247,9 @@ const Profile = () => {
                   Update Profile
                 </button>
                 <Link to="/createlisting">
-                <button className="font-Montserrat text-xl rounded-full px-16 text-white bg-blue-600 hover:bg-white hover:text-black transition ease-linear p-3">
-                  Create Listing
-                </button>
+                  <button className="font-Montserrat text-xl rounded-full px-16 text-white bg-blue-600 hover:bg-white hover:text-black transition ease-linear p-3">
+                    Create Listing
+                  </button>
                 </Link>
               </div>
               <div className="flex text-red-600 text-xl w-full justify-between mt-4">
@@ -219,6 +268,49 @@ const Profile = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="w-full flex flex-col gap-5">
+          <button className="text-5xl">See List</button>
+          <h1 className="text-4xl">{userListings.message}</h1>
+          {/* {
+      <h1>   
+           {userListings?.data?.[0]?.title}
+      </h1>
+    } */}
+
+          {userListings.data?.map((list, index) => {
+            return (
+              <div
+                className="flex gap-2 justify-between items-center bg-gray-300 p-5 rounded-xl w-full"
+                key={list._id}
+              >
+                <img
+                  src={list.imageUrls?.[0]}
+                  className="h-[150px] w-[200px]"
+                ></img>
+                <h1 className="text-4xl">{list.title}</h1>
+                {
+                  <div className="text-3xl flex flex-col gap-3">
+                    <button
+                      className="p-2 rounded-xl text-red-500 border-2 border-red-500
+                   hover:bg-red-500 hover:text-white transition-all duration-200"
+                      onClick={() => deleteList(list._id)}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="p-2 rounded-xl text-green-600 border-2 border-green-600
+                   hover:bg-green-600 hover:text-white transition-all duration-200"
+                      // onClick={() => deleteList(list._id)}
+                    >
+                      EDIT
+                    </button>
+                  </div>
+                }
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

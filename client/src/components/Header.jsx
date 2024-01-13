@@ -10,7 +10,7 @@ import {
 
 const Header = () => {
   const {currentUser} = useSelector((state) => state.user);
-  console.log(currentUser);
+  // console.log(currentUser);
   const dispatch = useDispatch();
 
   return (

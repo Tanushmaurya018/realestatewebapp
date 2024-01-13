@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const Listing = require("../models/listing");
 
 async function updateProfile(req, res) {
   const {username,email,photoURL}=req.body
@@ -50,7 +51,30 @@ const deleteUser=async(req,res)=>{
     return res.clearCookie("access_token").json({message:"Account Deleted"})
 }
 
+const getUserLists=async (req,res)=>{
+
+  if (req.user._id !== req.params.id)
+  return res.json({ message: "You can only view your own listing" });
+
+  const allLists=await Listing.find({author:req.params.id})
+  if (allLists.length == 0) {
+    return res.json({message:"No List available"})
+  }
+  console.log(allLists)
+
+  return res.json({data:allLists,message:"Your Lists"})
+}
+
+const deleteList =async(req,res)=>{
+  await Listing.findByIdAndDelete(req.params.id)
+  const allLists=await Listing.find({})
+  console.log("Aaa",allLists)
+  res.json({data:allLists,message :"List Deleted"})
+}
+
 module.exports = {
   updateProfile,
   deleteUser,
+  getUserLists,
+  deleteList,
 };

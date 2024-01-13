@@ -36,7 +36,7 @@ const createListing = async (req,res) => {
 
   const savedListing = await newListing.save();
 const user=await User.find({_id:author})
-  console.log(user)
+  // console.log(user)
 console.log(savedListing)
   res.json({ savedListing });
 };
