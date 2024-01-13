@@ -44,7 +44,7 @@ const listSchema = new Schema(
       type: String,
       required: false,
     },
-    imageURL: {
+    imageUrls: {
       type: Array,
       required: false,
     },

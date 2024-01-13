@@ -14,7 +14,9 @@ const createListing = async (req,res) => {
     bathroom,
     regularprice,
     discountedprice,
+    imageUrls,
   } = req.body;
+  const author=req.user;
 
   const newListing = new Listing({
     title,
@@ -28,11 +30,12 @@ const createListing = async (req,res) => {
     bathroom,
     regularprice,
     discountedprice,
-    author:req.user,
+    imageUrls,
+    author,
   });
 
   const savedListing = await newListing.save();
-const user=await User.findOne({author})
+const user=await User.find({_id:author})
   console.log(user)
 console.log(savedListing)
   res.json({ savedListing });
