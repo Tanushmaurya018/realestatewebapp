@@ -66,16 +66,11 @@ const getUserLists=async (req,res)=>{
   return res.json({data:allLists,message:"Your Lists"})
 }
 
-const deleteList =async(req,res)=>{
-  await Listing.findByIdAndDelete(req.params.id)
-  const allLists=await Listing.find({})
-  // console.log("Aaa",allLists)
-  res.json({data:allLists,message :"List Deleted"})
-}
+
 
 module.exports = {
   updateProfile,
   deleteUser,
   getUserLists,
-  deleteList,
+  
 };

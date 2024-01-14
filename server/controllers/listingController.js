@@ -1,7 +1,7 @@
 const Listing = require("../models/listing");
 const User = require("../models/user");
 
-const createListing = async (req,res) => {
+const createListing = async (req, res) => {
   const {
     title,
     description,
@@ -16,7 +16,7 @@ const createListing = async (req,res) => {
     discountedprice,
     imageUrls,
   } = req.body;
-  const author=req.user;
+  const author = req.user;
 
   const newListing = new Listing({
     title,
@@ -35,12 +35,26 @@ const createListing = async (req,res) => {
   });
 
   const savedListing = await newListing.save();
-const user=await User.find({_id:author})
+  const user = await User.find({ _id: author });
   // console.log(user)
-// console.log(savedListing)
+  // console.log(savedListing)
   res.json({ savedListing });
 };
+const deleteList = async (req, res) => {
+  await Listing.findByIdAndDelete(req.params.id);
+  const allLists = await Listing.find({});
+  // console.log("Aaa",allLists)
+  res.json({ data: allLists, message: "List Deleted" });
+};
 
+const updateList = async (req, res) => {
+  const list = await Listing.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  res.json({ list });
+};
 module.exports = {
-    createListing,
+  createListing,
+  deleteList,
+  updateList,
 };

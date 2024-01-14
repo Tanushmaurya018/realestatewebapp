@@ -23,7 +23,6 @@ import {
   signOutUserFailure,
 } from "../redux/user/userSlice";
 
-import {Link} from "react-router-dom"
 
 import { FaCamera } from "react-icons/fa";
 import bg from "../assets/profileAndAuthBgvideo.mp4";
@@ -107,13 +106,11 @@ const Profile = () => {
 
   const handleListing = async () => {
     try {
-      // console.log("Previous User Listings:", userListings);
       const response = await axios.get(
         `/api/user/list/${currentUser.userWoPassword._id}`
       );
       setUserListings(response.data);
-      // console.log("Updated User Listings:", response.data);
-      // console.log("Updated User Listings from state:", userListings);
+
     } catch (error) {
       console.log(error);
     }
@@ -121,13 +118,11 @@ const Profile = () => {
 
   const deleteList = async (listingId) => {
     try {
-      const response = await axios.post(`/api/user/list/delete/${listingId}`);
-      // console.log(response.data);
+      const response = await axios.post(`/api/listing/delete/${listingId}`);
       setUserListings((prev) => {
         const updatedListings = prev.data.filter(
           (item) => item._id !== listingId
         );
-        // console.log("Updated User Listings:", updatedListings);
         return { data: updatedListings };
       });
     } catch (error) {
@@ -135,6 +130,13 @@ const Profile = () => {
     }
   };
 
+  const handleUpdateList=async(listingId)=>{
+    try {
+      const response=await axios.post(`/api/listing/update/${listingId}`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
@@ -310,7 +312,7 @@ const Profile = () => {
                       <button
                         className="p-2 rounded-xl text-green-600 border-2 border-green-600
                    hover:bg-green-600 hover:text-white transition-all duration-200"
-                        // onClick={() => deleteList(list._id)}
+                        onClick={() => handleUpdateList(list._id)}
                       >
                         EDIT
                       </button>
