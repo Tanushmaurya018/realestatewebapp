@@ -2,14 +2,12 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-
-
 const signup = async (req, res) => {
   const { username, email, password } = req.body;
   const user = await User.findOne({ email });
 
   if (user) {
-    return res.json({ message: "User already exist" });
+    return res.json({ message: "This e-mail is already in use" });
   }
 
   const hashedPassword = bcrypt.hashSync(password, Number(process.env.SALT));
@@ -34,7 +32,7 @@ async function login(req, res) {
   }
   const validatePassword = bcrypt.compareSync(password, user.password);
   if (!validatePassword) {
-    console.log("Wrong")
+    // console.log("Wrong")
     return res.json({ message: "Wrong credentials" });
   }
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);

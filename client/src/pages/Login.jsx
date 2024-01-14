@@ -17,12 +17,13 @@ import GoogleAuth from "../components/GoogleAuth";
 const Login = () => {
   // const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(null);
-  const {currentUser}=useSelector((state)=>state.user)
+  const { currentUser, loading } = useSelector((state) => state.user);
 
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
+
   const dispatch = useDispatch();
 
   const changeUserData = (e) => {
@@ -45,22 +46,20 @@ const Login = () => {
 
       if (response.data.message == "Logged In successfully") {
         navigate("/");
-      } else {
-        navigate("/login");
       }
+      // else {
+      //   navigate("/login");
+      // }
       dispatch(signInSuccess(response.data));
       // console.log(response.data.message);
     } catch (error) {
       dispatch(signInFailure(error));
     }
   }
-
-  function googleAuth(){
-
-  }
+  console.log(loading);
   return (
     <div className="">
-      {currentUser?.loading ? (
+      {loading ? (
         <Loader />
       ) : (
         <div
@@ -93,8 +92,6 @@ const Login = () => {
                 className={` italic text-white text-xl lg:text-2xl px-5 py-2 rounded-full  bg-opacity-60`}
                 onChange={changeUserData}
                 required
-
-
               ></input>
               {currentUser?.message != "Logged In successfully" && (
                 <label className="text-red-500">{currentUser?.message}</label>
@@ -114,9 +111,9 @@ const Login = () => {
                   <hr className="w-[100px]" />
                 </div>
 
-                  <GoogleAuth/>
-                  {/* import { FaGoogle } from "react-icons/fa"; //for React.js */}
-               
+                <GoogleAuth />
+                {/* import { FaGoogle } from "react-icons/fa"; //for React.js */}
+
                 <div className="flex justify-center items-center text-gray-700">
                   <h1 className="m-2 ">Don't have an account ?</h1>
                   <Link to="/signup" className="underline text-blue-500">
@@ -127,7 +124,7 @@ const Login = () => {
             </form>
           </div>
         </div>
-       )} 
+      )}
     </div>
   );
 };

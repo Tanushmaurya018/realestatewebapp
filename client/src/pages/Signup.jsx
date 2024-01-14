@@ -26,10 +26,10 @@ const Signup = () => {
     try {
       setLoading(true);
       const response = await axios.post("/api/auth/signup", userData);
-      console.log(response.data);
-      if (response.data.message === "User already exist") {
+      // console.log(response.data);
+      if (response.data.message === "This e-mail is already in use") {
         setError(response.data.message);
-        navigate("/signup");
+        // navigate("/signup");
       } else {
         navigate("/login");
       }
@@ -40,7 +40,7 @@ const Signup = () => {
     }
   };
 
-  console.log(loading);
+  // console.log(loading);
 
   return (
     <div className="">

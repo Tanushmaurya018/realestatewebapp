@@ -15,8 +15,9 @@ app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
 // app.use(verifyToken())
-app.use("/api/user",userRouter)
+
 app.use("/api/auth",authRouter)
+app.use("/api/user",userRouter)
 app.use("/api/listing",listingRouter)
 
 app.use((err,req,res,next)=>{

@@ -11,6 +11,9 @@ import {
 
 import { formatProdErrorMessage } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
+
+
 const CreateListing = () => {
   const [files, setFiles] = useState([]);
   const [imageUploadError, setImageUploadError] = useState(false);
@@ -29,6 +32,8 @@ const CreateListing = () => {
     discountedprice: "5",
     imageUrls: [],
   });
+  const [filePerc, setFilePerc] = useState(0);
+  const [loading,setLoading]=useState(false)
   const navigate=useNavigate()
 
   const uploadImage = () => {
@@ -76,8 +81,8 @@ const CreateListing = () => {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`Upload is ${progress}% done`);
-        },
+            setFilePerc(Math.round(progress));
+          },
         (error) => {
           reject(error);
         },
@@ -96,19 +101,25 @@ const CreateListing = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const response = await axios.post("/api/listing/createlisting", formData);
-      console.log(response.data);
+      console.log("Saved Listing",response.data);
       navigate("/profile")
+      setLoading(false)
 
     } catch (error) {
+      setLoading(false)
       console.log(error);
     }
   };
 
-  console.log(formData);
+  // console.log(formData);
   return (
     <div className="container mx-auto p-2 h-full w-full">
+            {loading ? (
+        <Loader />
+      ) : (
       <div className="flex flex-col  gap-20 w-full bg-gray-200 rounded-2xl p-5">
         <h1 className=" text-6xl font-Montserrat text-center">
           Create Listing
@@ -271,12 +282,6 @@ const CreateListing = () => {
                   </button>
                 </div>
               ))}
-            {/* <img
-              width="400px"
-              height="400px"
-              src={defaultListPic}
-              className=" bg-cover "
-            ></img> */}
             <input
               type="file"
               name="images"
@@ -286,17 +291,20 @@ const CreateListing = () => {
 
               multiple
             ></input>
-            {uploading ? (
+            {uploading ? (<div className="flex flex-col justify-center items-center">
               <button className="cursor-no-drop border-2 bg-blue-500 text-white px-10 py-2 rounded-full text-2xl">
                 Uploading{" "}
               </button>
-            ) : (
+              <h1 className="text-green-800 text-xl">{filePerc}%</h1>
+              </div>
+            ) : (<div className="flex flex-col justify-center items-center">
               <button
                 onClick={uploadImage}
                 className="border-2 bg-blue-500 text-white px-10 py-2 rounded-full text-2xl"
               >
                 Upload
               </button>
+              </div>
             )}
             {imageUploadError && (
               <label className="text-red-500">!! {imageUploadError} !!</label>
@@ -314,6 +322,7 @@ const CreateListing = () => {
           </button>
         </div>
       </div>
+      )}
     </div>
   );
 };

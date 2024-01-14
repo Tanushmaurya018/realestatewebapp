@@ -46,7 +46,8 @@ const deleteUser=async(req,res)=>{
   if (req.user._id !== req.params.id)
   return res.json({ message: "You can only delete your account" });
 
-    await User.findByIdAndDelete(req.params.id)
+  await User.findByIdAndDelete(req.params.id)
+  await Listing.deleteMany({author:req.params.id})
 
     return res.clearCookie("access_token").json({message:"Account Deleted"})
 }
@@ -60,7 +61,7 @@ const getUserLists=async (req,res)=>{
   if (allLists.length == 0) {
     return res.json({message:"No List available"})
   }
-  console.log(allLists)
+  // console.log(allLists)
 
   return res.json({data:allLists,message:"Your Lists"})
 }
@@ -68,7 +69,7 @@ const getUserLists=async (req,res)=>{
 const deleteList =async(req,res)=>{
   await Listing.findByIdAndDelete(req.params.id)
   const allLists=await Listing.find({})
-  console.log("Aaa",allLists)
+  // console.log("Aaa",allLists)
   res.json({data:allLists,message :"List Deleted"})
 }
 
