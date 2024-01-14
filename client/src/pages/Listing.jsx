@@ -31,7 +31,7 @@ const Listing = () => {
     fetchData();
   }, []);
   return (
-    <div className="container mx-auto overflow-hidden">
+    <div className="container mx-auto overflow-hidden p-3">
       {loading ? (
         <Loader />
       ) : (
@@ -41,20 +41,57 @@ const Listing = () => {
               <Swiper navigation>
                 {list.imageUrls.map((url) => (
                   <SwiperSlide key={url}>
-                    <div
-                      className="h-[550px]"
-                      style={{
-                        background: `url(${url}) center no-repeat`,
-                        backgroundSize: "cover",
-                      }}
-                    ></div>
+                    <div className="h-[450px] flex justify-center items-center">
+                      <img src={`${url}`} className=""></img>
+                    </div>
                   </SwiperSlide>
                 ))}
               </Swiper>
-              <div className="w-full text-7xl flex flex-col">
-              <h1>{list.title}</h1>
-              <h1>{list.description}</h1>
-
+              <div className="w-full flex flex-col flex-wrap p-5 gap-5">
+                <h1 className="text-5xl w-full text-center">{list.title}</h1>
+                <div className="w-1/2 text-2xl p-8">
+                  <h1 className="">{list.description}</h1>
+                  <div className="flex justify-between items-center">
+                    <label>Address : </label>
+                    <h1 className="">{list.address}</h1>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <label>Furnished : </label>
+                    <h1 className="">{list.furnished}</h1>
+                  </div>{" "}
+                  <div className="flex justify-between items-center">
+                    <label>Parking : </label>
+                    <h1 className="">{list.parking}</h1>
+                  </div>{" "}
+                  <div className="flex justify-between items-center">
+                    <label>Rent : </label>
+                    <h1 className="">{list.rent}</h1>
+                  </div>{" "}
+                  <div className="flex justify-between items-center">
+                    <label>Sale : </label>
+                    <h1 className="">{list.sale}</h1>
+                  </div>{" "}
+                  <div className="flex justify-between items-center">
+                    <label>Bathroom : </label>
+                    <h1 className="">{list.bathroom}</h1>
+                  </div>{" "}
+                  <div className="flex justify-between items-center">
+                    <label>Bedroom : </label>
+                    <h1 className="">{list.bedroom}</h1>
+                  </div>{" "}
+                  <div className="flex justify-between items-center">
+                    <label>Regular Price : </label>
+                    <h1 className="">{list.regularprice}</h1>
+                  </div>{" "}
+                  <div className="flex justify-between items-center">
+                    <label>Discounted Price : </label>
+                    <h1 className="">{list.discountedprice}</h1>
+                  </div>{" "}
+                  <div className="flex justify-between items-center">
+                    <label>Saler : </label>
+                    <h1 className="">{list.author}</h1>
+                  </div>
+                </div>
               </div>
             </div>
           )}
