@@ -58,9 +58,16 @@ const updateList = async (req, res) => {
   console.log("fgk",list)
   res.json({ list });
 };
+
+const getList=async(req,res)=>{
+    const list=await Listing.findById(req.params.id);
+
+    return res.json(list)
+}
 module.exports = {
   createListing,
   deleteList,
   updateList,
   getToUpdateList,
+  getList,
 };

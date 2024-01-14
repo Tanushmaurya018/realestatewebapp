@@ -23,7 +23,6 @@ import {
   signOutUserFailure,
 } from "../redux/user/userSlice";
 
-
 import { FaCamera } from "react-icons/fa";
 import bg from "../assets/profileAndAuthBgvideo.mp4";
 import { Link, useNavigate } from "react-router-dom";
@@ -110,7 +109,6 @@ const Profile = () => {
         `/api/user/list/${currentUser.userWoPassword._id}`
       );
       setUserListings(response.data);
-
     } catch (error) {
       console.log(error);
     }
@@ -288,7 +286,6 @@ const Profile = () => {
 
             {userListings.data?.map((list, index) => {
               return (
-                
                 <div
                   className="flex gap-2 justify-between items-center bg-gray-300 p-5 rounded-xl w-full"
                   key={list._id}
@@ -298,7 +295,7 @@ const Profile = () => {
                     className="h-[150px] w-[200px] bg-cover"
                   ></img>
                   <Link to={`/listing/${list._id}`}>
-                  <h1 className="text-4xl underline">{list.title}</h1>
+                    <h1 className="text-4xl underline">{list.title}</h1>
                   </Link>
                   {
                     <div className="text-3xl flex flex-col gap-3">
@@ -309,15 +306,14 @@ const Profile = () => {
                       >
                         Delete
                       </button>
-                      <Link to={`/editlist/${list._id}`}> 
-                     
-                      <button
-                        className="p-2 rounded-xl text-green-600 border-2 border-green-600
+                      <Link to={`/editlist/${list._id}`}>
+                        <button
+                          className="p-2 rounded-xl text-green-600 border-2 border-green-600
                    hover:bg-green-600 hover:text-white transition-all duration-200"
-                        // onClick={() => handleUpdateList(list._id)}
-                      >
-                        EDIT
-                      </button>
+                          // onClick={() => handleUpdateList(list._id)}
+                        >
+                          EDIT
+                        </button>
                       </Link>
                     </div>
                   }
