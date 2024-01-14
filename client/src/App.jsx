@@ -9,6 +9,7 @@ import CreateListing from "./pages/CreateListing";
 import Header from "./components/Header";
 import PrivateRoutes from "./PrivateRoutes";
 import bg from "./assets/profileAndAuthBgvideo.mp4"
+import EditList from "./pages/EditList";
 
 function App() {
   return (
@@ -25,8 +26,9 @@ function App() {
         <Route path="/about" element={<About />}></Route>
 
         <Route element={<PrivateRoutes />}>
-        <Route path="/profile" element={<Profile />}></Route>
-        <Route path="/createlisting" element={<CreateListing />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/createlisting" element={<CreateListing />}></Route>
+          <Route path="/editlist/:listId" element={<EditList />}></Route>
         </Route>
       </Routes>
     </div>

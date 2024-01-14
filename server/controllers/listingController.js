@@ -46,15 +46,21 @@ const deleteList = async (req, res) => {
   // console.log("Aaa",allLists)
   res.json({ data: allLists, message: "List Deleted" });
 };
-
+const getToUpdateList=async(req,res)=>{
+  const toUpadateList=await Listing.findById(req.params.id);
+  console.log("ddd",toUpadateList)
+  res.json(toUpadateList)
+}
 const updateList = async (req, res) => {
   const list = await Listing.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
+  console.log("fgk",list)
   res.json({ list });
 };
 module.exports = {
   createListing,
   deleteList,
   updateList,
+  getToUpdateList,
 };

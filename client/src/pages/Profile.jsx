@@ -130,13 +130,13 @@ const Profile = () => {
     }
   };
 
-  const handleUpdateList=async(listingId)=>{
-    try {
-      const response=await axios.post(`/api/listing/update/${listingId}`)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const handleUpdateList=async(listingId)=>{
+  //   try {
+  //     const response=await axios.post(`/api/listing/update/${listingId}`)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
@@ -297,7 +297,7 @@ const Profile = () => {
                     src={list.imageUrls?.[0]}
                     className="h-[150px] w-[200px] bg-cover"
                   ></img>
-                  <Link to={`listing/${list._id}`}>
+                  <Link to={`/listing/${list._id}`}>
                   <h1 className="text-4xl underline">{list.title}</h1>
                   </Link>
                   {
@@ -309,13 +309,16 @@ const Profile = () => {
                       >
                         Delete
                       </button>
+                      <Link to={`/editlist/${list._id}`}> 
+                     
                       <button
                         className="p-2 rounded-xl text-green-600 border-2 border-green-600
                    hover:bg-green-600 hover:text-white transition-all duration-200"
-                        onClick={() => handleUpdateList(list._id)}
+                        // onClick={() => handleUpdateList(list._id)}
                       >
                         EDIT
                       </button>
+                      </Link>
                     </div>
                   }
                 </div>
