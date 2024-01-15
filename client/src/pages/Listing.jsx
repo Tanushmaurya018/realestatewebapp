@@ -5,13 +5,17 @@ import Loader from "../components/Loader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { useSelector } from "react-redux";
-import { Navigation } from "swiper/modules";
+import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import "swiper/css/bundle";
 
 const Listing = () => {
   SwiperCore.use([Navigation]);
+  SwiperCore.use([Autoplay]);
+
+  SwiperCore.use([Pagination]);
 
   const [list, setList] = useState();
+  const [user, setUser] = useState();
   const [loading, setLoading] = useState(false);
   const params = useParams();
   const listId = params.listId;
@@ -21,8 +25,9 @@ const Listing = () => {
       setLoading(true);
       try {
         const response = await axios.get(`/api/listing/getlist/${listId}`);
-        setList(response.data);
-        console.log(response.data);
+        setList(response.data.list);
+        setUser(response.data.userWoPassword);
+        // console.log(response.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -38,11 +43,30 @@ const Listing = () => {
         <div className="w-full">
           {list && (
             <div>
-              <Swiper navigation>
+              <Swiper
+                loop={true}
+                navigation
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+                }}
+                pagination={{
+                  clickable: true,
+                  
+                }}
+                style={{
+                  "--swiper-pagination-color": "#FFBA08",
+                  "--swiper-pagination-bullet-inactive-color": "#999999",
+                  "--swiper-pagination-bullet-inactive-opacity": "1",
+                  "--swiper-pagination-bullet-size": "16px",
+                  "--swiper-pagination-bullet-horizontal-gap": "6px"
+                }}
+              >
                 {list.imageUrls.map((url) => (
                   <SwiperSlide key={url}>
-                    <div className="h-[450px] flex justify-center items-center">
+                    <div className="realtive h-[450px] flex justify-center items-center">
                       <img src={`${url}`} className=""></img>
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-95"></div>
                     </div>
                   </SwiperSlide>
                 ))}
@@ -89,7 +113,7 @@ const Listing = () => {
                   </div>{" "}
                   <div className="flex justify-between items-center">
                     <label>Saler : </label>
-                    <h1 className="">{list.author}</h1>
+                    <h1 className="">{user.username}</h1>
                   </div>
                 </div>
               </div>

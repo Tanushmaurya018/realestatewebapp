@@ -60,9 +60,21 @@ const updateList = async (req, res) => {
 };
 
 const getList=async(req,res)=>{
+  // console.log(req.params.id)
     const list=await Listing.findById(req.params.id);
+    const authorId =list.author;
+    // console.log(authorId)
+    const author=await User.findById(authorId)
+    // console.log(author)
 
-    return res.json(list)
+    const userWoPassword = {
+      _id: author._id,
+      email: author.email,
+      username: author.username,
+      photoURL:author.photoURL,
+    };
+console.log(userWoPassword)
+    return res.json({list,userWoPassword})
 }
 module.exports = {
   createListing,
