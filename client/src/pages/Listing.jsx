@@ -36,13 +36,13 @@ const Listing = () => {
     fetchData();
   }, []);
   return (
-    <div className="container mx-auto overflow-hidden p-3">
+    <div className="container mx-auto overflow-hidden min-h-[100vh]">
       {loading ? (
         <Loader />
       ) : (
         <div className="w-full">
           {list && (
-            <div>
+            <div className="bg-orange-100">
               <Swiper
                 loop={true}
                 navigation
@@ -52,14 +52,13 @@ const Listing = () => {
                 }}
                 pagination={{
                   clickable: true,
-                  
                 }}
                 style={{
                   "--swiper-pagination-color": "#FFBA08",
                   "--swiper-pagination-bullet-inactive-color": "#999999",
                   "--swiper-pagination-bullet-inactive-opacity": "1",
                   "--swiper-pagination-bullet-size": "16px",
-                  "--swiper-pagination-bullet-horizontal-gap": "6px"
+                  "--swiper-pagination-bullet-horizontal-gap": "6px",
                 }}
               >
                 {list.imageUrls.map((url) => (
@@ -71,51 +70,63 @@ const Listing = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-              <div className="w-full flex flex-col flex-wrap p-5 gap-5">
-                <h1 className="text-5xl w-full text-center">{list.title}</h1>
-                <div className="w-1/2 text-2xl p-8">
-                  <h1 className="">{list.description}</h1>
-                  <div className="flex justify-between items-center">
-                    <label>Address : </label>
-                    <h1 className="">{list.address}</h1>
+              <div className="w-full flex flex-wrap p-5 gap-5">
+                <h1 className="text-5xlflex w-full text-center">
+                  {list.title}
+                </h1>
+
+                <div className="w-full flex">
+                  <div className="w-1/2  text-2xl p-8">
+                    <h1 className="">{list.description}</h1>
+                    <div className="flex justify-between items-center">
+                      <label>Address : </label>
+                      <h1 className="">{list.address}</h1>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <label>Furnished : </label>
+                      <h1 className="">{list.furnished}</h1>
+                    </div>{" "}
+                    <div className="flex justify-between items-center">
+                      <label>Parking : </label>
+                      <h1 className="">{list.parking}</h1>
+                    </div>{" "}
+                    <div className="flex justify-between items-center">
+                      <label>Rent : </label>
+                      <h1 className="">{list.rent}</h1>
+                    </div>{" "}
+                    <div className="flex justify-between items-center">
+                      <label>Sale : </label>
+                      <h1 className="">{list.sale}</h1>
+                    </div>{" "}
+                    <div className="flex justify-between items-center">
+                      <label>Bathroom : </label>
+                      <h1 className="">{list.bathroom}</h1>
+                    </div>{" "}
+                    <div className="flex justify-between items-center">
+                      <label>Bedroom : </label>
+                      <h1 className="">{list.bedroom}</h1>
+                    </div>{" "}
+                    <div className="flex justify-between items-center">
+                      <label>Regular Price : </label>
+                      <h1 className="">{list.regularprice}</h1>
+                    </div>{" "}
+                    <div className="flex justify-between items-center">
+                      <label>Discounted Price : </label>
+                      <h1 className="">{list.discountedprice}</h1>
+                    </div>{" "}
+                    <div className="flex justify-between items-center">
+                      <label>Saler : </label>
+                      <h1 className="">{user.username}</h1>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <label>Furnished : </label>
-                    <h1 className="">{list.furnished}</h1>
-                  </div>{" "}
-                  <div className="flex justify-between items-center">
-                    <label>Parking : </label>
-                    <h1 className="">{list.parking}</h1>
-                  </div>{" "}
-                  <div className="flex justify-between items-center">
-                    <label>Rent : </label>
-                    <h1 className="">{list.rent}</h1>
-                  </div>{" "}
-                  <div className="flex justify-between items-center">
-                    <label>Sale : </label>
-                    <h1 className="">{list.sale}</h1>
-                  </div>{" "}
-                  <div className="flex justify-between items-center">
-                    <label>Bathroom : </label>
-                    <h1 className="">{list.bathroom}</h1>
-                  </div>{" "}
-                  <div className="flex justify-between items-center">
-                    <label>Bedroom : </label>
-                    <h1 className="">{list.bedroom}</h1>
-                  </div>{" "}
-                  <div className="flex justify-between items-center">
-                    <label>Regular Price : </label>
-                    <h1 className="">{list.regularprice}</h1>
-                  </div>{" "}
-                  <div className="flex justify-between items-center">
-                    <label>Discounted Price : </label>
-                    <h1 className="">{list.discountedprice}</h1>
-                  </div>{" "}
-                  <div className="flex justify-between items-center">
-                    <label>Saler : </label>
-                    <h1 className="">{user.username}</h1>
+                  <div className="w-1/2 p-5 justify-center items-center">
+                  
+
+                    <textarea className="w-full bg-gray-200 rounded-2xl p-4 text-lg h-[300px]" placeholder="Send Your Message to Saler"></textarea>
+                    <a href="mailto:tanushmaurya018@gmail.com?body=Customer request "><button className="w-full bg-gray-900 text-white px-4 py-2 rounded-full" >Contact</button></a>
                   </div>
                 </div>
+
               </div>
             </div>
           )}

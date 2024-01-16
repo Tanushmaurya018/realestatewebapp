@@ -44,7 +44,7 @@ async function login(req, res) {
 
   };
   return res
-    .cookie("access_token", token, { httpOnly: true })
+    .cookie("access_token", token,  { expires: new Date(Date.now() + (30*24*3600000)) },{ httpOnly: true })
     .json({ message: "Logged In successfully", userWoPassword });
 }
 
@@ -62,7 +62,7 @@ async function google(req, res) {
     };
 
     return res
-      .cookie("access_token", token, { httpOnly: true })
+      .cookie("access_token", token, { expires: new Date(Date.now() + (30*24*3600000)) }, { httpOnly: true })
       .json({ message: "Logged In successfully", userWoPassword });
   }
 

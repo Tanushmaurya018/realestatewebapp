@@ -40,18 +40,28 @@ const listSchema = new Schema(
       type: String,
       required: true,
     },
+    rent: {
+      type: String,
+      required: true,
+    },
+    sale: {
+      type: String,
+      required: true,
+    },
     type: {
       type: String,
       required: false,
     },
     imageUrls: {
       type: Array,
+      default: ["https://www.vinebrookhomes.com/img/default.png"],
+
       required: false,
     },
-    author:{
-      type:Schema.Types.ObjectId,
-      ref:"User"
-    }
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );

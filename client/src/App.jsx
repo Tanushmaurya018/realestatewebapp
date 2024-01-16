@@ -14,7 +14,7 @@ import Listing from "./pages/Listing";
 
 function App() {
   return (
-    <div>
+    <div className="bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100">
 
       <div className="">
       <Header />

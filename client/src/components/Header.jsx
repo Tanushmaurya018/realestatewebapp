@@ -14,7 +14,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   return (
-    <header className=" container mx-auto bg-gray-300 h-[70px] flex justify-between items-center p-3 gap-2">
+    <header className=" container mx-auto bg-gradient-to-r from-rose-100 to-teal-100 h-[70px] flex justify-between items-center p-3 gap-2">
       <Link to="/">
         <h1 className="text-lg md:text-3xl ">Real Estate</h1>
       </Link>

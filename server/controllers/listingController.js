@@ -13,11 +13,10 @@ const createListing = async (req, res) => {
     bedroom,
     bathroom,
     regularprice,
-    discountedprice,
     imageUrls,
+    discountedprice,
   } = req.body;
   const author = req.user;
-
   const newListing = new Listing({
     title,
     description,
@@ -30,9 +29,10 @@ const createListing = async (req, res) => {
     bathroom,
     regularprice,
     discountedprice,
-    imageUrls,
+    imageUrls: req.body.imageUrls && req.body.imageUrls.length > 0 ? req.body.imageUrls : undefined,
     author,
   });
+  console.log(newListing.imageUrls)
 
   const savedListing = await newListing.save();
   const user = await User.find({ _id: author });
