@@ -287,15 +287,16 @@ const Profile = () => {
             {userListings.data?.map((list, index) => {
               return (
                 <div
-                  className="flex gap-2 justify-between items-center bg-gray-300 p-5 rounded-xl w-full"
+                  className="flex gap-2 justify-between items-center bg-orange-100 p-5 rounded-xl w-full"
                   key={list._id}
                 >
                   <img
                     src={list.imageUrls?.[0]}
-                    className="h-[150px] w-[200px] bg-cover"
+                    className="h-[150px] w-[220px] object-cover"
                   ></img>
-                  <Link to={`/listing/${list._id}`}>
-                    <h1 className="text-4xl underline">{list.title}</h1>
+                  <Link to={`/listing/${list._id}`} className="hover:underline">
+                    <h1 className="text-4xl ">{list.title}</h1>
+                    <h1 className="text-2xl ">{list.address}</h1>
                   </Link>
                   {
                     <div className="text-3xl flex flex-col gap-3">

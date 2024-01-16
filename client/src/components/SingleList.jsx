@@ -31,7 +31,8 @@ const CreateListing = (props) => {
             <p
               className=" text-xl p-3 mt-2 w-full"
             >
-                {props.description} Nestled in the heart of a serene countryside, this enchanting 
+                {props.description}
+                Nestled in the heart of a serene countryside, this enchanting 
                 property offers a perfect blend of rustic charm and modern elegance. Surrounded by 
                 lush greenery and towering trees, the landscape creates a tranquil haven that welcomes
                 residents into a world of peace and serenity. The property boasts a meticulously 

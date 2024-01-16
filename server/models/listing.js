@@ -5,6 +5,8 @@ const listSchema = new Schema(
     title: {
       type: String,
       required: true,
+      default: "No Title is provided by the owner",
+
     },
 
     description: {
@@ -15,6 +17,8 @@ const listSchema = new Schema(
     address: {
       type: String,
       required: true,
+      default: "No Address is provided by the owner",
+
     },
     regularprice: {
       type: String,

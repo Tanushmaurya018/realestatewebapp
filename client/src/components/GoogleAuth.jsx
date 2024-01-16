@@ -21,6 +21,8 @@ const GoogleAuth = () => {
     const auth = getAuth(app);
     const result = await signInWithPopup(auth, provider);
     // console.log(result);
+    const profileImg= result.user.photoURL
+    console.log(profileImg)
     dispatch(signInStart());
 
     try {
@@ -29,7 +31,7 @@ const GoogleAuth = () => {
         {
           username: result.user.displayName,
           email: result.user.email,
-          photoURL: result.user.photoURL,
+          photoURL: profileImg,
         },
         {
           withCredentials: "include",

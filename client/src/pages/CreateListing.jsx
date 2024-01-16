@@ -20,17 +20,17 @@ const CreateListing = () => {
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
-    title: "Title...",
-    description: "Description...",
-    address: "a",
-    furnished: "a",
-    parking: "a",
-    rent: "a",
-    sale: "a",
-    bedroom: "5",
-    bathroom: "5",
-    regularprice: "5",
-    discountedprice: "5",
+    title: "",
+    description: "",
+    address: "",
+    furnished: "YES",
+    parking: "YES",
+    rent: "YES",
+    sale: "NO",
+    bedroom: "2",
+    bathroom: "2",
+    regularprice: "50000000",
+    discountedprice: "49500000",
     imageUrls: [defaultListPic],
   });
   const [filePerc, setFilePerc] = useState(0);
@@ -134,7 +134,7 @@ const CreateListing = () => {
         focus:outline-none w-full focus:bg-transparent"
               onChange={changeUserData}
               value={formData.title}
-              placeholder="Title"
+              placeholder="Title..."
               required
             ></input>
             <textarea
@@ -142,23 +142,23 @@ const CreateListing = () => {
               name="description"
               className="h-[200px] text-xl p-3 bg-transparent border-2 border-gray-500 mt-2 
         focus:outline-none w-full focus:bg-transparent"
-              placeholder="Description"
+              placeholder="Description..."
               onChange={changeUserData}
               value={formData.description}
               required
             ></textarea>
-            {/* <input
+            <input
               type="text"
               name="address"
               className="text-xl px-1 bg-transparent border-b-2 border-gray-500 mt-2 
         focus:outline-none w-full focus:bg-transparent"
-              placeholder="Address"
+              placeholder="Address..."
               onChange={changeUserData}
               value={formData.address}
               required
-            ></input> */}
+            ></input>
 
-            {/* <div className="flex items-center justify-between text-xl gap-10">
+            <div className="flex items-center justify-between text-xl gap-10">
               <div className="flex flex-col gap-5 w-1/2 justify-between">
                 <div className="w-full flex gap-5 justify-between">
                   <label>Furnished</label>
@@ -260,7 +260,7 @@ const CreateListing = () => {
                   ></input>
                 </div>
               </div>
-            </div> */}
+            </div>
           </div>
 
           <div className="flex flex-col justify-center items-center border-2 gap-5 border-red-200 p-5">
@@ -273,7 +273,7 @@ const CreateListing = () => {
                   <img
                     src={img}
                     alt={img}
-                    className="h-[100px] w-[120px] bg-cover rounded-lg"
+                    className="h-[100px] w-[120px] object-cover rounded-lg"
                   />
                   <button
                     onClick={() => deleteImageUrl(i)}

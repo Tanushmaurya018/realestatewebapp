@@ -19,9 +19,9 @@ const createListing = async (req, res) => {
   } = req.body;
   const author = req.user;
   const newListing = new Listing({
-    title,
-    description : req.body.description === "" && undefined,
-    address,
+    title: title == "" ? undefined : title,
+    description: description == "" ? undefined : description,
+    address: address == "" ? undefined : address,
     furnished,
     parking,
     rent,
@@ -30,13 +30,10 @@ const createListing = async (req, res) => {
     bathroom,
     regularprice,
     discountedprice,
-    imageUrls:
-      req.body.imageUrls && req.body.imageUrls.length > 0
-        ? req.body.imageUrls
-        : undefined,
+    imageUrls: imageUrls && imageUrls.length > 0 ? imageUrls : undefined,
     author,
   });
-  console.log(newListing.imageUrls);
+  // console.log(newListing.imageUrls);
 
   const savedListing = await newListing.save();
   const user = await User.find({ _id: author });
@@ -52,14 +49,14 @@ const deleteList = async (req, res) => {
 };
 const getToUpdateList = async (req, res) => {
   const toUpadateList = await Listing.findById(req.params.id);
-  console.log("ddd", toUpadateList);
+  // console.log("ddd", toUpadateList);
   res.json(toUpadateList);
 };
 const updateList = async (req, res) => {
   const list = await Listing.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
-  console.log("fgk", list);
+  // console.log("fgk", list);
   res.json({ list });
 };
 
@@ -77,13 +74,27 @@ const getList = async (req, res) => {
     username: author.username,
     photoURL: author.photoURL,
   };
-  console.log(userWoPassword);
+  // console.log(userWoPassword);
   return res.json({ list, userWoPassword });
 };
+
+const getAllList = async (req, res) => {
+  const allList = await Listing.find({});
+  // const user=req.user;
+  const user = await User.findById(req.user);
+
+  if (!user) {
+    return res.json({ allList: null, message: "Not Signed In" });
+  }
+  //  :titleconsole.log("asdfd",allList)
+  res.json({ allList, message: "User Logged In" });
+};
+
 module.exports = {
   createListing,
   deleteList,
   updateList,
   getToUpdateList,
   getList,
+  getAllList,
 };
