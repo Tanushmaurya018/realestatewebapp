@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import defaultListPic from "../assets/defaultListPic.png";
+// import defaultListPic from "../assets/defaultListPic.png";
 import axios from "axios";
 import { app } from "../firebase";
 import {
@@ -12,6 +12,7 @@ import {
 import { formatProdErrorMessage } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import defaultListPic from "../assets/defaultList.png"
 
 
 const CreateListing = () => {
@@ -19,8 +20,8 @@ const CreateListing = () => {
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
-    title: "a",
-    description: "a",
+    title: "Title...",
+    description: "Description...",
     address: "a",
     furnished: "a",
     parking: "a",
@@ -30,7 +31,7 @@ const CreateListing = () => {
     bathroom: "5",
     regularprice: "5",
     discountedprice: "5",
-    imageUrls: [],
+    imageUrls: [defaultListPic],
   });
   const [filePerc, setFilePerc] = useState(0);
   const [loading,setLoading]=useState(false)
@@ -146,7 +147,7 @@ const CreateListing = () => {
               value={formData.description}
               required
             ></textarea>
-            <input
+            {/* <input
               type="text"
               name="address"
               className="text-xl px-1 bg-transparent border-b-2 border-gray-500 mt-2 
@@ -155,9 +156,9 @@ const CreateListing = () => {
               onChange={changeUserData}
               value={formData.address}
               required
-            ></input>
+            ></input> */}
 
-            <div className="flex items-center justify-between text-xl gap-10">
+            {/* <div className="flex items-center justify-between text-xl gap-10">
               <div className="flex flex-col gap-5 w-1/2 justify-between">
                 <div className="w-full flex gap-5 justify-between">
                   <label>Furnished</label>
@@ -259,7 +260,7 @@ const CreateListing = () => {
                   ></input>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex flex-col justify-center items-center border-2 gap-5 border-red-200 p-5">

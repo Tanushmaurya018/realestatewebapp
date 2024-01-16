@@ -1,5 +1,5 @@
 const { Schema, model, Model } = require("mongoose");
-
+// const defaultList = "../defaultList.png";
 const listSchema = new Schema(
   {
     title: {
@@ -9,7 +9,7 @@ const listSchema = new Schema(
 
     description: {
       type: String,
-      required: true,
+      required: false,
       default: "No description is provided by the owner",
     },
     address: {
@@ -54,8 +54,7 @@ const listSchema = new Schema(
     },
     imageUrls: {
       type: Array,
-      default: ["https://www.vinebrookhomes.com/img/default.png"],
-
+      // default:[defaultList],
       required: false,
     },
     author: {
