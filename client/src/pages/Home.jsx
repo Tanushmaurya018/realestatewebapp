@@ -17,7 +17,7 @@ try {
   const response = await axios.get(`/api/listing/getalllist`);
 
   setLists(response.data.allList);
-  // console.log(response.data.allList);
+  console.log(response.data.allList);
 } catch (error) {
 console.log(error)
 }

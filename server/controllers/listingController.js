@@ -83,12 +83,16 @@ const getAllList = async (req, res) => {
   // const user=req.user;
   const user = await User.findById(req.user);
 
-  if (!user) {
-    return res.json({ allList: null, message: "Not Signed In" });
-  }
-  //  :titleconsole.log("asdfd",allList)
+  // if (!user) {
+  //   return res.json({ allList: null, message: "Not Signed In" });
+  // }
+  //  console.log("asdfd",allList)
   res.json({ allList, message: "User Logged In" });
 };
+
+const getSearchList=(req,res)=>{
+  res.json({message:"helluu"})
+}
 
 module.exports = {
   createListing,
@@ -97,4 +101,5 @@ module.exports = {
   getToUpdateList,
   getList,
   getAllList,
+  getSearchList,
 };

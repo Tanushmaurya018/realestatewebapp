@@ -11,6 +11,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import bg from "./assets/profileAndAuthBgvideo.mp4"
 import EditList from "./pages/EditList";
 import Listing from "./pages/Listing";
+import Search from "./pages/Search";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/listing/:listId" element={<Listing />}></Route>
+        <Route path="/search" element={<Search />}></Route>
 
       </Routes>
     </div>
