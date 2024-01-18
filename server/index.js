@@ -9,8 +9,12 @@ dotenv.config();
 const cors=require("cors");
 const { verifyToken } = require("./services/verifyToken");
 const app = express();
-
+const path=require('path')
 mongoose.connect(process.env.MONGO_URL).then(() => console.log("DB Connected"));
+
+const __dirname = path.resolve();
+
+
 app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
@@ -19,6 +23,13 @@ app.use(cookieParser())
 app.use("/api/auth",authRouter)
 app.use("/api/user",userRouter)
 app.use("/api/listing",listingRouter)
+
+
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+})
 
 app.use((err,req,res,next)=>{
     const statuscode=err.statuscode || 500;

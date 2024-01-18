@@ -81,16 +81,21 @@ const getList = async (req, res) => {
 const getAllList = async (req, res) => {
   const allList = await Listing.find({});
   // const user=req.user;
-  const user = await User.findById(req.user);
+  // const user = await User.findById(req.user);
 
   // if (!user) {
   //   return res.json({ allList: null, message: "Not Signed In" });
   // }
-  //  console.log("asdfd",allList)
+   console.log("asdfd",allList)
   res.json({ allList, message: "User Logged In" });
 };
 
 const getSearchList=(req,res)=>{
+
+  const {searchTerm,rent,sale,offer,parking,furnished} =req.body;
+
+  
+
   res.json({message:"helluu"})
 }
 
