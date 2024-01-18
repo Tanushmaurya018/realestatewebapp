@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { FaGoogle, FaLaptopHouse } from "react-icons/fa";
+// import { FaGoogle, FaLaptopHouse } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
