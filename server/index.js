@@ -12,7 +12,7 @@ const app = express();
 const path=require('path')
 mongoose.connect(process.env.MONGO_URL).then(() => console.log("DB Connected"));
 
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 
 app.use(express.json())
