@@ -25,11 +25,13 @@ app.use("/api/user",userRouter)
 app.use("/api/listing",listingRouter)
 
 
-app.use(express.static(path.join(__dirname, 'client', 'dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
+// Define a route to handle all other routes and serve 'index.html'
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-})
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
+
 
 app.use((err,req,res,next)=>{
     const statuscode=err.statuscode || 500;
