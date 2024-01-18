@@ -2,11 +2,11 @@ import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  signInStart,
-  signInSuccess,
-  signInFailure,
-} from "../redux/user/userSlice";
+// import {
+//   signInStart,
+//   signInSuccess,
+//   signInFailure,
+// } from "../redux/user/userSlice";
 
 const Header = () => {
   const {currentUser} = useSelector((state) => state.user);
