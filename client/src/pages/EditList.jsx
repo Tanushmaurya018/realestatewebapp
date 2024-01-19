@@ -140,8 +140,8 @@ const listingId=params.listId
         <h1 className=" text-6xl font-Montserrat text-center">
           Edit Your Listing
         </h1>
-        <div className="flex justify-between w-full ">
-          <div className="flex flex-col gap-5 w-2/3">
+        <div className="flex flex-col md:flex-row justify-between w-full ">
+          <div className="flex flex-col gap-5 w-full md:w-2/3">
             <input
               type="text"
               name="title"
@@ -173,8 +173,8 @@ const listingId=params.listId
               required
             ></input>
 
-            <div className="flex items-center justify-between text-xl gap-10">
-              <div className="flex flex-col gap-5 w-1/2 justify-between">
+            <div className="flex flex-col md:flex-row items-center justify-between text-xl gap-10">
+              <div className="flex flex-col gap-5 w-full md:w-1/2 justify-between">
                 <div className="w-full flex gap-5 justify-between">
                   <label>Furnished</label>
                   <input
@@ -225,7 +225,7 @@ const listingId=params.listId
                 </div>
               </div>
 
-              <div className="text-xl flex flex-col gap-5 w-2/4 ">
+              <div className="text-xl flex flex-col gap-5 w-full md:w-1/2 ">
                 <div className="w-full flex gap-5 justify-between items-end">
                   <label>Bedroom</label>
                   <input
@@ -278,7 +278,7 @@ const listingId=params.listId
             </div>
           </div>
 
-          <div className="flex flex-col justify-center items-center border-2 gap-5 border-red-200 p-5">
+          <div className="flex flex-col justify-center w-full md:w-1/3 items-center border-2 gap-5 border-red-200 p-5">
             {formData.imageUrls.length > 0 &&
               formData.imageUrls.map((img, i) => (
                 <div
@@ -301,7 +301,7 @@ const listingId=params.listId
             <input
               type="file"
               name="images"
-              className="relative opacity-70 bg-purple-300 px-5 py-3 rounded-full"
+              className="relative opacity-70 bg-purple-300 w-full px-5 py-3 rounded-full"
               onChange={(e) => setFiles(e.target.files)}
               // value={formData.imageUrls}
 
@@ -326,8 +326,10 @@ const listingId=params.listId
               <label className="text-red-500">!! {imageUploadError} !!</label>
             )}{" "}
           </div>
+
         </div>
-        <div className="flex justify-end">
+
+        <div className="flex justify-center md:justify-end">
           <button
             className="font-Montserrat  text-xl rounded-full px-16 text-white
            bg-green-600 hover:bg-white hover:text-black transition ease-linear 
