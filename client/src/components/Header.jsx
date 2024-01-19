@@ -1,6 +1,7 @@
 import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { FaLock } from "react-icons/fa";
 
 // import {
 //   signInStart,
@@ -52,8 +53,10 @@ const Header = () => {
         ) : (
           <Link to="/login">
             {" "}
-            <li className="font-Montserrat text-xl rounded-full hover:px-16 text-white bg-green-600 hover:bg-white hover:text-black transition-all ease-linear p-3">
-              Log In
+            <li className="font-Montserrat text-xl rounded-full md:hover:px-16 text-white bg-green-600
+             hover:bg-white hover:text-black transition-all ease-linear p-3">
+              <span className="inline md:hidden"><FaLock /></span>
+              <span className="hidden md:inline">Log In</span>
             </li>
           </Link>
         )}
