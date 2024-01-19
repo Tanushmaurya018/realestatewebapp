@@ -41,18 +41,17 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container mx-auto  bg-red-200 min-h-[100vh]">
+    <div className="container mx-auto bg-gradient-to-b from-red-200 via-red-300 to-yellow-200 ">
       {loading ? (
         <Loader />
       ) : (
         <div className="flex-col">
-          <div className="w-full h-[500px] p-5 ">
-            <div className="relative bg-white w-full h-full rounded-2xl p-5">
+          <div className="w-full h-[500px]  ">
+            <div className=" flex flex-col justify-between relative  w-full h-full  p-5">
               {/* <div className="absolute inset-0 bg-gradient-to-b from-gray-100 to-black opacity-80 rounded-2xl"></div> */}
-              <div className="absolute top-0 bottom-0 left-0 right-0 p-2 h-full">
-
+              <div className="absolute top-0 bottom-0 left-0 right-0 p-0 h-full">
                 <Swiper
-                className="w-full h-full"
+                  className="w-full h-full"
                   loop={true}
                   autoplay={{
                     delay: 2500,
@@ -61,44 +60,49 @@ const Home = () => {
                 >
                   {list.map((url) => (
                     <SwiperSlide key={url}>
-                      <div className="h-auto  md:h-full flex  justify-center p-2 overflow-hidden  ">
+                      <div className="h-auto  md:h-full flex  justify-center p- overflow-hidden  ">
                         <img
                           src={url}
-                          className="shadow-sm shadow-current rounded-2xl h-[500px] md:h-full w-full object-cover "
+                          className="shadow-sm shadow-current  h-[500px] md:h-full w-full object-cover "
                         ></img>
-                        <div className="absolute rounded-2xl inset-0 bg-gradient-to-l from-transparent to-black opacity-95"></div>
+                        <div className="absolute  inset-0 bg-gradient-to-l from-transparent to-black opacity-95"></div>
                       </div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
-
               </div>
 
-              <h1 className="absolute flex justify-center text-3xl md:text-7xl text-gray-300 z-[2]">
-                Welcome To  Estates{" "}
+              <h1 className=" flex justify-center text-3xl md:text-7xl text-gray-300 z-[2]">
+                Welcome To Maurya Estates{" "}
               </h1>
-              <p className="absolute top-[80px] md:top-[150px] left-[30px]  text-xl md:text-3xl text-gray-400 w-3/4
-              z-[2]">
-              Welcome to mauryaestate.com – Your gateway to exceptional homes in India! Explore a curated selection of properties
-               tailored to your lifestyle. From urban dwellings to serene retreats, find your perfect home effortlessly. mauryaestate.com,
-                where your dream home awaits!
+              <p
+                className="text-sm md:text-3xl text-gray-400 w-3/4
+              z-[2]"
+              >
+                Welcome to mauryaestate.com – Your gateway to exceptional homes
+                in India! Explore a curated selection of properties tailored to
+                your lifestyle. From urban dwellings to serene retreats, find
+                your perfect home effortlessly. mauryaestate.com, where your
+                dream home awaits!
               </p>
-              <Link to="/login">
-              <h1 className=" absolute bottom-10 left-3 md:left-10 text-lg md:text-2xl z-10 px-10 rounded-full bg-green-600  py-2 text-white">
-                Log In
-              </h1>
-              </Link>
 
-              
-              <h1 className=" absolute bottom-10 right-3 md:right-10 text-lg md:text-2xl z-10 px-10 rounded-full bg-blue-600  py-2 text-white">
-                View Lsiting
-              </h1>
+              <div className="flex justify-between z-[2]">
+                <Link to="/login">
+                  <h1 className=" text-2sm md:text-2xl z-10 px-5 md:px-10 rounded-full bg-green-600  py-2 text-white">
+                    Log In
+                  </h1>
+                </Link>
+
+                <Link to="/">
+                  <h1 className="  text-2sm md:text-2xl z-10 px-5 md:px-10 rounded-full bg-blue-600  py-2 text-white">
+                    View Listing
+                  </h1>
+                </Link>
+              </div>
             </div>
-
           </div>
 
           <div className=" flex justify-center  items-center h-full">
-
             <div className=" flex flex-wrap justify-center items-center ">
               {lists?.map((list) => {
                 return (

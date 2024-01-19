@@ -45,7 +45,7 @@ const Listing = () => {
   }, []);
 
   return (
-    <div className="container mx-auto overflow-hidden min-h-[100vh]">
+    <div className="transition-all ease-linear container mx-auto overflow-hidden min-h-[100vh]">
       {loading ? (
         <Loader />
       ) :

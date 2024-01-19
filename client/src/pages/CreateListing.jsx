@@ -117,15 +117,16 @@ const CreateListing = () => {
 
   // console.log(formData);
   return (
-    <div className="container mx-auto p-2 h-full w-full">
+    <div className="transition-all ease-linear container mx-auto p-2 h-full w-full">
             {loading ? (
         <Loader />
       ) : (
-      <div className="flex flex-col  gap-20 w-full bg-gray-200 rounded-2xl p-5">
+      <div className="flex flex-col gap-10  md:gap-20 w-full bg-gray-200 rounded-2xl p-5">
         <h1 className=" text-6xl font-Montserrat text-center">
           Create Listing
         </h1>
         <div className="flex flex-col md:flex-row justify-between w-full ">
+
           <div className="flex flex-col gap-5 w-full md:w-2/3">
             <input
               type="text"
@@ -158,7 +159,7 @@ const CreateListing = () => {
               required
             ></input>
 
-            <div className="flex ms:flex-row flex-col items-center justify-between text-xl gap-10 ">
+            <div className="flex md:flex-row flex-col items-center justify-between text-xl gap-10 ">
 
               <div className="flex flex-col gap-5 w-full md:w-1/2 justify-between">
                 <div className="w-full flex gap-5 justify-between">
@@ -288,7 +289,7 @@ const CreateListing = () => {
             <input
               type="file"
               name="images"
-              className="relative opacity-70 bg-purple-300 px-5 py-3 rounded-full"
+              className="relative opacity-70 bg-purple-300 w-full px-5 py-3 rounded-full"
               onChange={(e) => setFiles(e.target.files)}
               // value={formData.imageUrls}
 

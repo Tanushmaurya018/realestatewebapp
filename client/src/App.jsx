@@ -7,8 +7,9 @@ import About from "./pages/About";
 import Profile from "./pages/Profile";
 import CreateListing from "./pages/CreateListing";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import PrivateRoutes from "./PrivateRoutes";
-import bg from "./assets/profileAndAuthBgvideo.mp4"
+// import bg from "./assets/profileAndAuthBgvideo.mp4"
 import EditList from "./pages/EditList";
 import Listing from "./pages/Listing";
 import Search from "./pages/Search";
@@ -36,6 +37,7 @@ function App() {
         <Route path="/search" element={<Search />}></Route>
 
       </Routes>
+      <Footer/>
     </div>
   );
 }

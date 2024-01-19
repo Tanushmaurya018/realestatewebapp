@@ -147,14 +147,15 @@ const Profile = () => {
 
   // console.log(currentUser.message);
   return (
-    <div className=" container  mx-auto  flex flex-col justify-center items-center p-2 gap-2 h-full ">
+    <div className="transition-all ease-linear container  mx-auto  flex flex-col justify-center items-center p-2 gap-2 h-full ">
       {loading ? (
         <Loader />
       ) : (
-        <div className="h-full w-full flex flex-col justify-center items-center p-8 gap-3 bg-gray-200 bg-opacity-70 backdrop-blur rounded-2xl shadow-xl border-2 border-gray-300">
+        <div className="h-full w-full flex flex-col justify-center items-center p-2 md:p-8 gap-3
+         bg-gray-200 bg-opacity-70 backdrop-blur rounded-2xl shadow-xl border-2 border-gray-300">
           <h1 className="text-3xl md:text-5xl font-Montserrat">YOUR PROFILE</h1>
 
-          <div className="flex flex-col md:flex-row-reverse w-full gap-24  h-full justify-evenly">
+          <div className="flex flex-col md:flex-row-reverse w-full gap-10 md:gap-24  h-full justify-evenly">
             <div className="flex flex-col gap-10  items-center">
               <div className="relative border-2 border-black top-0 bottom-0  rounded-full overflow-hidden">
                 <img
@@ -195,13 +196,13 @@ const Profile = () => {
 
             <div className="flex flex-col gap-5 justify-between w-full md:w-3/4 ">
               <div className="p-2 flex flex-col gap-6">
-                <div className="flex gap-5 items-end font-Manrope text-2xl md:text-4xl border-b-4 pb-2">
+                <div className="flex gap-5 items-end font-Manrope text-xl md:text-4xl border-b-4 pb-2">
                   <label className=" font-bold">Name :</label>
                   <h1>{currentUser.userWoPassword.username}</h1>
                 </div>{" "}
-                <div className="flex gap-5 items-end font-Manrope text-sm md:text-4xl border-b-4 pb-2">
-                  <label className="text-xl  md:text-4xl font-bold">E-Mail :</label>
-                  <h1>{currentUser.userWoPassword.email}</h1>
+                <div className="flex gap-5 items-end font-Manrope text-xl md:text-4xl border-b-4 pb-2">
+                  <label className="  md:text-4xl font-bold">E-Mail :</label>
+                  <h1 className="text-sm md:text-4xl text-right">{currentUser.userWoPassword.email}</h1>
                 </div>{" "}
               </div>
 
@@ -257,13 +258,13 @@ const Profile = () => {
                 </div>
                 <div className="flex text-red-600 text-xl w-full justify-between mt-4">
                   <h1
-                    className="cursor-pointer font-sm transition-all hover:font-bold duration-200 ease-in-out underline "
+                    className="cursor-pointer text-lg md:text-xl font-sm transition-all hover:font-bold duration-200 ease-in-out underline "
                     onClick={handleDelete}
                   >
                     Delete Account ?
                   </h1>
                   <h1
-                    className="cursor-pointer font-sm transition-all hover:font-bold duration-200 ease-in-out underline "
+                    className="cursor-pointer text-lg md:text-xl font-sm transition-all hover:font-bold duration-200 ease-in-out underline "
                     onClick={handleLogOut}
                   >
                     Log Out ?
@@ -295,14 +296,14 @@ const Profile = () => {
                     className="h-[150px] w-[220px] object-cover"
                   ></img>
                   <Link to={`/listing/${list._id}`} className="hover:underline text-center">
-                    <h1 className="text-4xl ">{list.title}</h1>
-                    <h1 className="text-2xl ">{list.address}</h1>
+                    <h1 className="text-2xl md:text-4xl ">{list.title}</h1>
+                    <h1 className="text-xl md:text-2xl ">{list.address}</h1>
                   </Link>
                   {
                     <div className="text-3xl flex flex-row md:flex-col gap-3">
                       <button
                         className="p-2 rounded-xl text-red-500 border-2 border-red-500
-                   hover:bg-red-500 hover:text-white transition-all duration-200"
+                   hover:bg-red-500 hover:text-white transition-all duration-200 text-xl md:text-3xl"
                         onClick={() => deleteList(list._id)}
                       >
                         Delete
@@ -310,7 +311,7 @@ const Profile = () => {
                       <Link to={`/editlist/${list._id}`}>
                         <button
                           className="p-2 rounded-xl text-green-600 border-2 border-green-600
-                   hover:bg-green-600 hover:text-white transition-all duration-200"
+                   hover:bg-green-600 hover:text-white transition-all duration-200 text-xl md:text-3xl"
                           // onClick={() => handleUpdateList(list._id)}
                         >
                           EDIT
