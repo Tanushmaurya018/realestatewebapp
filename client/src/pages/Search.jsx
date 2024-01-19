@@ -32,7 +32,7 @@ const Search = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(formData)
+  // console.log(formData)
   return (
     <div className="container mx-auto bg-orange-200 min-h-[100vh] p-10 ">
       {loading ? (

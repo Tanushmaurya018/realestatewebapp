@@ -31,7 +31,7 @@ const Listing = () => {
         const response = await axios.get(`/api/listing/getlist/${listId}`);
         setList(response.data.list);
         setUser(response.data.userWoPassword);
-        console.log(response.data);
+       // console.log(response.data);
         // const mailtoLink = ;
 
         setLoading(false);

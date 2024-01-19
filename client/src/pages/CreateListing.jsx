@@ -105,7 +105,7 @@ const CreateListing = () => {
     setLoading(true)
     try {
       const response = await axios.post("/api/listing/createlisting", formData);
-      console.log("Saved Listing",response.data);
+      // console.log("Saved Listing",response.data);
       navigate("/profile")
       setLoading(false)
 

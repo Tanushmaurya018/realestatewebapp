@@ -53,8 +53,8 @@ const deleteUser=async(req,res)=>{
 }
 
 const getUserLists=async (req,res)=>{
-  console.log(req.user._id)
-  console.log(req.params.id)
+  // console.log(req.user._id)
+  // console.log(req.params.id)
   if (req.user._id !== req.params.id)
   return res.json({ message: "You can only view your own listing" });
 

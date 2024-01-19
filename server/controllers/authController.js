@@ -27,7 +27,7 @@ async function login(req, res) {
   const user = await User.findOne({ email });
 
   if (!user) {
-    console.log(user)
+    // console.log(user)
     return res.json({ message: "User doesn't exists" });
   }
   const validatePassword = bcrypt.compareSync(password, user.password);

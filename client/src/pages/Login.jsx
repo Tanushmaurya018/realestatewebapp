@@ -56,7 +56,7 @@ const Login = () => {
       dispatch(signInFailure(error));
     }
   }
-  console.log(loading);
+  // console.log(loading);
   return (
     <div className="">
       {loading ? (

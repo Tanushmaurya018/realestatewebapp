@@ -22,7 +22,7 @@ const GoogleAuth = () => {
     const result = await signInWithPopup(auth, provider);
     // console.log(result);
     const profileImg= result.user.photoURL
-    console.log(profileImg)
+    // console.log(profileImg)
     dispatch(signInStart());
 
     try {

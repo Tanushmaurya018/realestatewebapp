@@ -86,7 +86,7 @@ const getAllList = async (req, res) => {
   // if (!user) {
   //   return res.json({ allList: null, message: "Not Signed In" });
   // }
-   console.log("asdfd",allList)
+  //  console.log("asdfd",allList)
   res.json({ allList, message: "User Logged In" });
 };
 

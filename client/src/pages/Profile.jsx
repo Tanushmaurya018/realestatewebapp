@@ -81,7 +81,7 @@ const Profile = () => {
 
     try {
       const response = await axios.get("/api/auth/logout");
-      console.log(response.data.message);
+      // console.log(response.data.message);
       dispatch(signOutUserSuccess());
     } catch (error) {
       console.log(error);
@@ -100,7 +100,7 @@ const Profile = () => {
       console.log(error);
       dispatch(deleteUserFailure());
     }
-    console.log(response.data);
+    // console.log(response.data);
   };
 
   const handleListing = async () => {

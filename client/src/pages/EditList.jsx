@@ -105,7 +105,7 @@ const EditList = () => {
     setLoading(true)
     try {
       const response = await axios.post(`/api/listing/update/${listingId}`, formData);
-      console.log("Saved Listing",response.data);
+      // console.log("Saved Listing",response.data);
       navigate(`/listing/${listingId}`)
       setLoading(false)
 
@@ -125,7 +125,7 @@ const listingId=params.listId
 
         const response=await axios.get(`/api/listing/update/${listingId}`)
         setFormData(response.data)
-        console.log(response.data)
+        // console.log(response.data)
     }
 
     fetchData()
