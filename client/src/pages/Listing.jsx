@@ -8,8 +8,9 @@ import { useSelector } from "react-redux";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import "swiper/css/bundle";
 
-import Login from "../pages/Login"
+import Login from "../pages/Login";
 const Listing = () => {
+  const {currentUser} =useSelector((state)=>state.user)
   SwiperCore.use([Navigation]);
   SwiperCore.use([Autoplay]);
 
@@ -20,7 +21,7 @@ const Listing = () => {
   const [loading, setLoading] = useState(false);
   const params = useParams();
   const listId = params.listId;
-  const [message, setMessage] = useState(""); 
+  const [message, setMessage] = useState("");
 
   //  const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
   const handleTextareaChange = (event) => {
@@ -33,7 +34,7 @@ const Listing = () => {
         const response = await axios.get(`/api/listing/getlist/${listId}`);
         setList(response.data.list);
         setUser(response.data.userWoPassword);
-       // console.log(response.data);
+        // console.log(response.data);
         // const mailtoLink = ;
 
         setLoading(false);
@@ -46,19 +47,21 @@ const Listing = () => {
 
   return (
     <div className="transition-all ease-linear container mx-auto overflow-hidden min-h-[100vh]">
-      {loading ? (
-        <Loader />
-      ) :
-        user ==null ? <div className="relative">
-          <h1 className="absolute top-2 bottom-0 flex justify-center right-0 left-0 text-5xl ">Sign In to view</h1>
-          <Login/>
-          </div>
+      {loading ? <Loader/> 
       :
-      (
+      
+      currentUser == null ? 
+        <div className="relative">
+          <h1 className="absolute top-2 bottom-0 flex justify-center right-0 left-0 text-5xl ">
+            Sign In to view
+          </h1>
+          <Login />
+        </div>
+      
+      : (
         <div className="w-full p-1 ">
           {list && (
             <div className="bg-orange-100 w-full md:p-2 p-5 ">
-
               <Swiper
                 loop={true}
                 navigation
@@ -89,22 +92,32 @@ const Listing = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-              
+
               <div className="w-full flex flex-wrap p-5 gap-5 ">
-                <h1 className="text-3xl md:text-5xl  w-full text-center underline">{list.title}</h1>
+                <h1 className="text-3xl md:text-5xl  w-full text-center underline">
+                  {list.title}
+                </h1>
 
                 <div className="w-full flex md:flex-row flex-col ">
                   <div className="w-full md:w-1/2  text-2xl p-3 md:p-8 flex flex-col gap-5 bg-orange-200 rounded-xl">
-                  <div className="flex  items-center text-xl md:text-3xl">
+                    <div className="flex  items-center text-xl md:text-3xl">
                       {/* <label className="font-bold text-black"></label> */}
-                      <h1 className=""><span className="font-bold">Description : </span>{list.description}</h1>
+                      <h1 className="">
+                        <span className="font-bold">Description : </span>
+                        {list.description}
+                      </h1>
                     </div>
                     <div className="flex  items-center text-xl md:text-3xl">
                       {/* <label className="font-bold text-black"></label> */}
-                      <h1 className=""><span className="font-bold">Address : </span>{list.address}</h1>
+                      <h1 className="">
+                        <span className="font-bold">Address : </span>
+                        {list.address}
+                      </h1>
                     </div>
                     <div className="flex justify-between items-center text-xl md:text-3xl">
-                      <label className="font-bold text-black">Furnished : </label>
+                      <label className="font-bold text-black">
+                        Furnished :{" "}
+                      </label>
                       <h1 className="">{list.furnished}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
@@ -120,7 +133,9 @@ const Listing = () => {
                       <h1 className="">{list.sale}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
-                      <label className="font-bold text-black">Bathroom : </label>
+                      <label className="font-bold text-black">
+                        Bathroom :{" "}
+                      </label>
                       <h1 className="">{list.bathroom}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
@@ -128,11 +143,15 @@ const Listing = () => {
                       <h1 className="">{list.bedroom}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
-                      <label className="font-bold text-black">Regular Price : </label>
+                      <label className="font-bold text-black">
+                        Regular Price :{" "}
+                      </label>
                       <h1 className="">{list.regularprice}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
-                      <label className="font-bold text-black">Discounted Price : </label>
+                      <label className="font-bold text-black">
+                        Discounted Price :{" "}
+                      </label>
                       <h1 className="">{list.discountedprice}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
@@ -160,7 +179,13 @@ const Listing = () => {
             </div>
           )}
         </div>
-      )}
+        
+      )
+    
+
+      }
+
+
     </div>
   );
 };
