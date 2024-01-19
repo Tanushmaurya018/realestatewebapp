@@ -125,8 +125,8 @@ const CreateListing = () => {
         <h1 className=" text-6xl font-Montserrat text-center">
           Create Listing
         </h1>
-        <div className="flex justify-between w-full ">
-          <div className="flex flex-col gap-5 w-2/3">
+        <div className="flex flex-col md:flex-row justify-between w-full ">
+          <div className="flex flex-col gap-5 w-full md:w-2/3">
             <input
               type="text"
               name="title"
@@ -158,8 +158,9 @@ const CreateListing = () => {
               required
             ></input>
 
-            <div className="flex items-center justify-between text-xl gap-10">
-              <div className="flex flex-col gap-5 w-1/2 justify-between">
+            <div className="flex ms:flex-row flex-col items-center justify-between text-xl gap-10 ">
+
+              <div className="flex flex-col gap-5 w-full md:w-1/2 justify-between">
                 <div className="w-full flex gap-5 justify-between">
                   <label>Furnished</label>
                   <input
@@ -210,14 +211,14 @@ const CreateListing = () => {
                 </div>
               </div>
 
-              <div className="text-xl flex flex-col gap-5 w-2/4 ">
+              <div className="text-xl flex flex-col gap-5 w-full md:w-1/2 ">
                 <div className="w-full flex gap-5 justify-between items-end">
                   <label>Bedroom</label>
                   <input
                     type="number"
                     name="bedroom"
                     className="text-xl px-1 bg-transparent border-b-2 border-gray-500 mt-2 
-                    focus:outline-none w-1/2 focus:bg-transparent"
+                    focus:outline-none w-1/2 focus:bg-transparent text-right"
                     onChange={changeUserData}
                     value={formData.bedroom}
                     required
@@ -230,7 +231,7 @@ const CreateListing = () => {
                     name="bathroom"
                     onChange={changeUserData}
                     className="text-xl px-1 bg-transparent border-b-2 border-gray-500 mt-2 
-                    focus:outline-none w-1/2 focus:bg-transparent"
+                    focus:outline-none w-1/2 focus:bg-transparent text-right"
                     value={formData.bathroom}
                     required
                   ></input>
@@ -241,7 +242,7 @@ const CreateListing = () => {
                     type="number"
                     name="regularprice"
                     className="text-xl px-1 bg-transparent border-b-2 border-gray-500 mt-2 
-                    focus:outline-none w-1/2 focus:bg-transparent"
+                    focus:outline-none w-1/2 focus:bg-transparent text-right"
                     onChange={changeUserData}
                     value={formData.regularprice}
                     required
@@ -253,13 +254,14 @@ const CreateListing = () => {
                     type="number"
                     name="discountedprice"
                     className="text-xl px-1 bg-transparent border-b-2 border-gray-500 mt-2 
-                    focus:outline-none w-1/2 focus:bg-transparent"
+                    focus:outline-none w-1/2 focus:bg-transparent text-right"
                     onChange={changeUserData}
                     value={formData.discountedprice}
                     required
                   ></input>
                 </div>
               </div>
+
             </div>
           </div>
 
@@ -312,7 +314,7 @@ const CreateListing = () => {
             )}{" "}
           </div>
         </div>
-        <div className="flex justify-end">
+        <div className="flex justify-center md:justify-end">
           <button
             className="font-Montserrat  text-xl rounded-full px-16 text-white
            bg-green-600 hover:bg-white hover:text-black transition ease-linear 

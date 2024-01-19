@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 // } from "../redux/user/userSlice";
 
 const Header = () => {
-  const {currentUser} = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
   // console.log(currentUser);
   const dispatch = useDispatch();
 
@@ -37,14 +37,18 @@ const Header = () => {
           </Link>
         </div>
         {currentUser?.userWoPassword != null ? (
-            <Link to="/profile" className="flex gap-2 items-center justify-center" >
-           
-           <h1> {currentUser.userWoPassword?.username}</h1>
-              <img
-                className="w-[50px] h-[50px] rounded-full"
-                src={currentUser?.userWoPassword?.photoURL}
-              ></img>
-            </Link>
+          <Link
+            to="/profile"
+            className="flex gap-2 items-center justify-center"
+          >
+            <div className="hidden md:inline">
+              <h1> {currentUser.userWoPassword?.username}</h1>
+            </div>
+            <img
+              className="w-[50px] h-[50px] rounded-full"
+              src={currentUser?.userWoPassword?.photoURL}
+            ></img>
+          </Link>
         ) : (
           <Link to="/login">
             {" "}

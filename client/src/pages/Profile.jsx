@@ -151,10 +151,10 @@ const Profile = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="h-full w-[1500px] flex flex-col justify-center items-center p-8 gap-3 bg-gray-200 bg-opacity-70 backdrop-blur rounded-2xl shadow-xl border-2 border-gray-300">
-          <h1 className="text-5xl font-Montserrat">YOUR PROFILE</h1>
+        <div className="h-full w-full flex flex-col justify-center items-center p-8 gap-3 bg-gray-200 bg-opacity-70 backdrop-blur rounded-2xl shadow-xl border-2 border-gray-300">
+          <h1 className="text-3xl md:text-5xl font-Montserrat">YOUR PROFILE</h1>
 
-          <div className="flex flex-row-reverse w-full gap-24  h-full justify-evenly">
+          <div className="flex flex-col md:flex-row-reverse w-full gap-24  h-full justify-evenly">
             <div className="flex flex-col gap-10  items-center">
               <div className="relative border-2 border-black top-0 bottom-0  rounded-full overflow-hidden">
                 <img
@@ -193,14 +193,14 @@ const Profile = () => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-5 justify-between w-3/4 ">
+            <div className="flex flex-col gap-5 justify-between w-full md:w-3/4 ">
               <div className="p-2 flex flex-col gap-6">
-                <div className="flex gap-5 items-end font-Manrope text-4xl border-b-4 pb-2">
-                  <label className="text-5xl font-bold">Name :</label>
+                <div className="flex gap-5 items-end font-Manrope text-2xl md:text-4xl border-b-4 pb-2">
+                  <label className=" font-bold">Name :</label>
                   <h1>{currentUser.userWoPassword.username}</h1>
                 </div>{" "}
-                <div className="flex gap-5 items-end font-Manrope text-4xl border-b-4 pb-2">
-                  <label className="text-5xl font-bold">E-Mail :</label>
+                <div className="flex gap-5 items-end font-Manrope text-sm md:text-4xl border-b-4 pb-2">
+                  <label className="text-xl  md:text-4xl font-bold">E-Mail :</label>
                   <h1>{currentUser.userWoPassword.email}</h1>
                 </div>{" "}
               </div>
@@ -242,15 +242,15 @@ const Profile = () => {
               </div>
 
               <div>
-                <div className="flex gap-3 mt-4">
+                <div className="flex gap-3 mt-4 justify-center md:justify-start">
                   <button
                     onClick={handleSubmit}
-                    className="font-Montserrat text-xl rounded-full px-16 text-white bg-green-600 hover:bg-white hover:text-black transition ease-linear p-3"
+                    className="font-Montserrat text-sm md:text-xl rounded-full px-5 md:px-16 text-white bg-green-600 hover:bg-white hover:text-black transition ease-linear p-3"
                   >
                     Update Profile
                   </button>
                   <Link to="/createlisting">
-                    <button className="font-Montserrat text-xl rounded-full px-16 text-white bg-blue-600 hover:bg-white hover:text-black transition ease-linear p-3">
+                    <button className="font-Montserrat text-sm md:text-xl rounded-full px-5 md:px-16 text-white bg-blue-600 hover:bg-white hover:text-black transition ease-linear p-3">
                       Create Listing
                     </button>
                   </Link>
@@ -275,7 +275,7 @@ const Profile = () => {
 
           <div className="w-full justify-center items-center flex flex-col gap-5">
             <button
-              className="text-3xl flex justify-center items-center gap-5 text-white font-medium bg-green-500 px-10 py-2 rounded-full"
+              className="text-xl md:text-3xl flex justify-center items-center gap-5 text-white font-medium bg-green-500 px-10 py-2 rounded-full"
               onClick={handleListing}
             >
               See List
@@ -287,19 +287,19 @@ const Profile = () => {
             {userListings.data?.map((list, index) => {
               return (
                 <div
-                  className="flex gap-2 justify-between items-center bg-orange-100 p-5 rounded-xl w-full"
+                  className="flex flex-col md:flex-row gap-2 justify-between items-center bg-orange-100 p-5 rounded-xl w-full"
                   key={list._id}
                 >
                   <img
                     src={list.imageUrls?.[0]}
                     className="h-[150px] w-[220px] object-cover"
                   ></img>
-                  <Link to={`/listing/${list._id}`} className="hover:underline">
+                  <Link to={`/listing/${list._id}`} className="hover:underline text-center">
                     <h1 className="text-4xl ">{list.title}</h1>
                     <h1 className="text-2xl ">{list.address}</h1>
                   </Link>
                   {
-                    <div className="text-3xl flex flex-col gap-3">
+                    <div className="text-3xl flex flex-row md:flex-col gap-3">
                       <button
                         className="p-2 rounded-xl text-red-500 border-2 border-red-500
                    hover:bg-red-500 hover:text-white transition-all duration-200"

@@ -8,7 +8,7 @@ router.post("/createlisting",verifyToken,createListing)
 router.post('/delete/:id', verifyToken,deleteList)
 router.post('/update/:id', verifyToken,updateList)
 router.get('/update/:id', verifyToken,getToUpdateList)
-router.get('/getlist/:id',getList)
+router.get('/getlist/:id',verifyToken,getList)
 router.get('/getalllist',getAllList)
 router.get('/searchlist/:id',verifyToken,getSearchList)
 
