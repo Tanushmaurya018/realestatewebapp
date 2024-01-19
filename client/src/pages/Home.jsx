@@ -111,6 +111,8 @@ const Home = () => {
                       imageUrls={`${list.imageUrls[0]}`}
                       title={`${list.title}`}
                       address={`${list.address}`}
+                      bedroom={`${list.bedroom}`}
+                      type={`${list.rent === "YES" ? "Rent" : "Sale"}`}
                     />
                   </Link>
                 );

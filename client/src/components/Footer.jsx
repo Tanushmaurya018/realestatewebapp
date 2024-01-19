@@ -5,7 +5,7 @@ import { CiLinkedin } from "react-icons/ci";
 const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white p-4 transition-all ease-linear ">
-      <div className="container mx-auto flex flex-col justify-center items-center gap-2 text-2xl ">
+      <div className="container mx-auto flex flex-col justify-center items-center gap-2 text-sm md:text-2xl ">
         <p className="">&copy; 2024 Maurya Estates. All rights reserved.</p>
         <div className="flex gap-5 justify-center items-center w-full ">
 
