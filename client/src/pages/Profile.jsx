@@ -35,23 +35,6 @@ const Profile = () => {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
-  const changeUserData = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async () => {
-    dispatch(updateUserStart());
-    try {
-      const response = await axios.post(
-        `/api/user/update/${currentUser.userWoPassword._id}`,
-        formData
-      );
-      dispatch(updateUserSuccess(response.data));
-      // console.log(response.data);
-    } catch (error) {
-      dispatch(updateUserFailure());
-    }
-  };
 
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
@@ -89,20 +72,6 @@ const Profile = () => {
     }
   };
 
-  const handleDelete = async () => {
-    dispatch(deleteUserStart());
-    try {
-      const response = await axios.post(
-        `/api/user/delete/${currentUser.userWoPassword._id}`
-      );
-      dispatch(deleteUserSuccess());
-    } catch (error) {
-      console.log(error);
-      dispatch(deleteUserFailure());
-    }
-    // console.log(response.data);
-  };
-
   const handleListing = async () => {
     try {
       const response = await axios.get(
@@ -114,27 +83,6 @@ const Profile = () => {
     }
   };
 
-  const deleteList = async (listingId) => {
-    try {
-      const response = await axios.post(`/api/listing/delete/${listingId}`);
-      setUserListings((prev) => {
-        const updatedListings = prev.data.filter(
-          (item) => item._id !== listingId
-        );
-        return { data: updatedListings };
-      });
-    } catch (error) {
-      console.log("Error:", error);
-    }
-  };
-
-  // const handleUpdateList=async(listingId)=>{
-  //   try {
-  //     const response=await axios.post(`/api/listing/update/${listingId}`)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
@@ -152,12 +100,12 @@ const Profile = () => {
         <Loader />
       ) : (
         <div className="h-full w-full flex flex-col justify-center items-center p-2 md:p-8 gap-3
-         bg-gray-200 bg-opacity-70 backdrop-blur rounded-2xl shadow-xl border-2 border-gray-300">
-          <h1 className="text-3xl md:text-5xl font-Montserrat">YOUR PROFILE</h1>
+         bg-gray-700 bg-opacity-70 backdrop-blur rounded-2xl shadow-xl ">
+          <h1 className="text-3xl md:text-5xl font-Montserrat text-gray-300">YOUR PROFILE</h1>
 
           <div className="flex flex-col md:flex-row-reverse w-full gap-10 md:gap-24  h-full justify-evenly">
             <div className="flex flex-col gap-10  items-center">
-              <div className="relative border-2 border-black top-0 bottom-0  rounded-full overflow-hidden">
+              <div className="relative border-2 border-black top-0 bottom-0  rounded-full overflow-hidden text-gray-300">
                 <img
                   className=" w-[250px] h-[250px]  "
                   src={formData.photoURL || currentUser.userWoPassword.photoURL}
@@ -195,7 +143,7 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col gap-5 justify-between w-full md:w-3/4 ">
-              <div className="p-2 flex flex-col gap-6">
+              <div className="p-2 flex flex-col gap-6 text-gray-300">
                 <div className="flex gap-5 items-end font-Manrope text-xl md:text-4xl border-b-4 pb-2">
                   <label className=" font-bold">Name :</label>
                   <h1>{currentUser.userWoPassword.username}</h1>
@@ -206,8 +154,8 @@ const Profile = () => {
                 </div>{" "}
               </div>
 
-              <h1 className="text-3xl font-thin">Update Profile :</h1>
-              <div className="p-2 flex flex-col gap-5 ">
+              {/* <h1 className="text-3xl font-thin">Update Profile :</h1> */}
+              {/* <div className="p-2 flex flex-col gap-5 ">
                 <input
                   className="text-xl px-1 bg-transparent border-b-2 border-gray-500 mt-4 focus:outline-none w-full focus:bg-transparent"
                   name="username"
@@ -240,31 +188,31 @@ const Profile = () => {
                     !! {currentUser.message} !!
                   </label>
                 )}
-              </div>
+              </div> */}
 
               <div>
                 <div className="flex gap-3 mt-4 justify-center md:justify-start">
-                  <button
+                  {/* <button
                     onClick={handleSubmit}
                     className="font-Montserrat text-sm md:text-xl rounded-full px-5 md:px-16 text-white bg-green-600 hover:bg-white hover:text-black transition ease-linear p-3"
                   >
                     Update Profile
-                  </button>
+                  </button> */}
                   <Link to="/createlisting">
                     <button className="font-Montserrat text-sm md:text-xl rounded-full px-5 md:px-16 text-white bg-blue-600 hover:bg-white hover:text-black transition ease-linear p-3">
                       Create Listing
                     </button>
                   </Link>
                 </div>
-                <div className="flex text-red-600 text-xl w-full justify-between mt-4">
-                  <h1
+                <div className="flex text-red-600 text-xl w-full justify-end mt-4">
+                  {/* <h1
                     className="cursor-pointer text-lg md:text-xl font-sm transition-all hover:font-bold duration-200 ease-in-out underline "
                     onClick={handleDelete}
                   >
                     Delete Account ?
-                  </h1>
+                  </h1> */}
                   <h1
-                    className="cursor-pointer text-lg md:text-xl font-sm transition-all hover:font-bold duration-200 ease-in-out underline "
+                    className="cursor-pointer text-lg md:text-xl font-sm transition-all hover:font-bold duration-200 ease-in-out underline"
                     onClick={handleLogOut}
                   >
                     Log Out ?
@@ -283,23 +231,23 @@ const Profile = () => {
               <IoIosArrowDropdown />
             </button>
 
-            <h1 className="w-full text-4xl">{userListings.message}</h1>
+            <h1 className="w-full text-4xl text-gray-300">{userListings.message}</h1>
 
             {userListings.data?.map((list, index) => {
               return (
                 <div
-                  className="flex flex-col md:flex-row gap-2 justify-between items-center bg-orange-100 p-5 rounded-xl w-full"
-                  key={list._id}
+                  className="flex flex-col md:flex-row gap-2 justify-between items-center text-gray-300 bg-gray-600 p-5 rounded-xl w-full"
+                  key={list.id}
                 >
                   <img
                     src={list.imageUrls?.[0]}
                     className="h-[150px] w-[220px] object-cover"
                   ></img>
-                  <Link to={`/listing/${list._id}`} className="hover:underline text-center">
+                  <Link to={`/listing/${list.id}`} className="hover:underline text-center">
                     <h1 className="text-2xl md:text-4xl ">{list.title}</h1>
                     <h1 className="text-xl md:text-2xl ">{list.address}</h1>
                   </Link>
-                  {
+                  {/* {
                     <div className="text-3xl flex flex-row md:flex-col gap-3">
                       <button
                         className="p-2 rounded-xl text-red-500 border-2 border-red-500
@@ -318,7 +266,7 @@ const Profile = () => {
                         </button>
                       </Link>
                     </div>
-                  }
+                  } */}
                 </div>
               );
             })}

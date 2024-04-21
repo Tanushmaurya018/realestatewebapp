@@ -34,7 +34,7 @@ const Listing = () => {
         const response = await axios.get(`/api/listing/getlist/${listId}`);
         setList(response.data.list);
         setUser(response.data.userWoPassword);
-        // console.log(response.data);
+        console.log(response.data);
         // const mailtoLink = ;
 
         setLoading(false);
@@ -46,7 +46,7 @@ const Listing = () => {
   }, []);
 
   return (
-    <div className="transition-all ease-linear container mx-auto overflow-hidden min-h-[100vh]">
+    <div className="transition-all  text-gray-300 ease-linear container mx-auto overflow-hidden min-h-[100vh]">
       {loading ? <Loader/> 
       :
       
@@ -61,7 +61,7 @@ const Listing = () => {
       : (
         <div className="w-full p-1 ">
           {list && (
-            <div className="bg-orange-100 w-full md:p-2 p-5 ">
+            <div className="bg-gray-700 w-full md:p-2 p-5 ">
               <Swiper
                 loop={true}
                 navigation
@@ -80,7 +80,7 @@ const Listing = () => {
                   "--swiper-pagination-bullet-horizontal-gap": "6px",
                 }}
               >
-                {list.imageUrls.map((url) => (
+                {list[0].imageUrls.map((url) => (
                   <SwiperSlide key={url}>
                     <div className="h-auto  md:h-[450px] flex  justify-center p-2 ">
                       <img
@@ -95,64 +95,69 @@ const Listing = () => {
 
               <div className="w-full flex flex-wrap p-5 gap-5 ">
                 <h1 className="text-3xl md:text-5xl  w-full text-center underline">
-                  {list.title}
+                  {list[0].title}
                 </h1>
 
                 <div className="w-full flex md:flex-row flex-col ">
-                  <div className="w-full md:w-1/2  text-2xl p-3 md:p-8 flex flex-col gap-5 bg-orange-200 rounded-xl">
-                    <div className="flex  items-center text-xl md:text-3xl">
-                      {/* <label className="font-bold text-black"></label> */}
-                      <h1 className="">
-                        <span className="font-bold">Description : </span>
-                        {list.description}
-                      </h1>
-                    </div>
-                    <div className="flex  items-center text-xl md:text-3xl">
-                      {/* <label className="font-bold text-black"></label> */}
-                      <h1 className="">
-                        <span className="font-bold">Address : </span>
-                        {list.address}
-                      </h1>
-                    </div>
+                  <div className="w-full md:w-1/2  text-2xl p-3 md:p-8 flex flex-col gap-5 bg-gray-500 rounded-xl">
+                 
+                 
+                 
+                  <div className="flex justify-between items-center text-xl md:text-3xl">
+                      <label className="text-lg font-bold text-black">
+                        Description:{" "}
+                      </label>
+                      <h1 className=" text-lg text-right">{list[0].listingDescription}</h1>
+                    </div>{" "}
+                    
+                    <div className="flex justify-between items-center text-xl md:text-3xl">
+                      <label className="font-bold text-black text-lg">
+                        Address:{" "}
+                      </label>
+                      <h1 className="text-lg text-right">{list[0].address}</h1>
+                    </div>{" "}
+
+
+
                     <div className="flex justify-between items-center text-xl md:text-3xl">
                       <label className="font-bold text-black">
                         Furnished :{" "}
                       </label>
-                      <h1 className="">{list.furnished}</h1>
+                      <h1 className="">{list[0].furnished}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
                       <label className="font-bold text-black">Parking : </label>
-                      <h1 className="">{list.parking}</h1>
+                      <h1 className="">{list[0].parking}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
                       <label className="font-bold text-black">Rent : </label>
-                      <h1 className="">{list.rent}</h1>
+                      <h1 className="">{list[0].rent}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
                       <label className="font-bold text-black">Sale : </label>
-                      <h1 className="">{list.sale}</h1>
+                      <h1 className="">{list[0].sale}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
                       <label className="font-bold text-black">
                         Bathroom :{" "}
                       </label>
-                      <h1 className="">{list.bathroom}</h1>
+                      <h1 className="">{list[0].bathroom}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
                       <label className="font-bold text-black">Bedroom : </label>
-                      <h1 className="">{list.bedroom}</h1>
+                      <h1 className="">{list[0].bedroom}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
                       <label className="font-bold text-black">
                         Regular Price :{" "}
                       </label>
-                      <h1 className="">{list.regularprice}</h1>
+                      <h1 className="">{list[0].regularprice}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
                       <label className="font-bold text-black">
                         Discounted Price :{" "}
                       </label>
-                      <h1 className="">{list.discountedprice}</h1>
+                      <h1 className="">{list[0].discountedprice}</h1>
                     </div>{" "}
                     <div className="flex justify-between items-center text-xl md:text-3xl">
                       <label className="font-bold text-black">Saler : </label>
@@ -161,7 +166,7 @@ const Listing = () => {
                   </div>
                   <div className="w-full md:w-1/2  p-5 justify-center items-center">
                     <textarea
-                      className="w-full bg-orange-300 rounded-2xl p-4 text-lg h-[300px] placeholder:text-black"
+                      className="w-full bg-gray-500 rounded-2xl p-4 text-lg h-[300px] placeholder:text-black"
                       placeholder="Send Your Message to Saler..."
                       value={message}
                       onChange={handleTextareaChange}

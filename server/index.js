@@ -1,5 +1,5 @@
 const express = require("express");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cookieParser=require("cookie-parser")
 const userRouter=require("./routes/userRoute")
@@ -7,10 +7,10 @@ const authRouter=require("./routes/authRouter")
 const listingRouter=require("./routes/listingRouter")
 dotenv.config();
 const cors=require("cors");
-const { verifyToken } = require("./services/verifyToken");
 const app = express();
 const path=require('path')
-mongoose.connect(process.env.MONGO_URL).then(() => console.log("DB Connected"));
+const db=require("./db");
+// mongoose.connect(process.env.MONGO_URL).then(() => console.log("DB Connected"));
 
 // const __dirname = path.resolve();
 

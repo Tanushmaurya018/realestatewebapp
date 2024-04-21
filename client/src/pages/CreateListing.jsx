@@ -115,13 +115,13 @@ const CreateListing = () => {
     }
   };
 
-  // console.log(formData);
+  console.log(formData);
   return (
     <div className="transition-all ease-linear container mx-auto p-2 h-full w-full">
             {loading ? (
         <Loader />
       ) : (
-      <div className="flex flex-col gap-10  md:gap-20 w-full bg-gray-200 rounded-2xl p-5">
+      <div className="flex flex-col gap-10  md:gap-20 w-full bg-gray-700 rounded-2xl p-5 text-gray-300">
         <h1 className=" text-6xl font-Montserrat text-center">
           Create Listing
         </h1>
@@ -168,7 +168,7 @@ const CreateListing = () => {
                     type="text"
                     // onChange={handleCheckboxChange}
                     name="furnished"
-                    className="h-10 w-40 px-4 py-2 rounded-full  uppercase "
+                    className="h-10 w-40 px-4 py-2 rounded-full  uppercase bg-transparent border-2"
                     onChange={changeUserData}
                     value={formData.furnished}
                     required
@@ -180,7 +180,7 @@ const CreateListing = () => {
                     type="text"
                     // onClick={checkBox}
                     name="parking"
-                    className="h-10 w-40 px-4 py-2 rounded-full  uppercase "
+                    className="h-10 w-40 px-4 py-2 rounded-full  uppercase bg-transparent border-2"
                     onChange={changeUserData}
                     value={formData.parking}
                     required
@@ -192,7 +192,7 @@ const CreateListing = () => {
                     type="text"
                     // onClick={checkBox}
                     name="rent"
-                    className="h-10 w-40 px-4 py-2 rounded-full  uppercase "
+                    className="h-10 w-40 px-4 py-2 rounded-full  uppercase bg-transparent border-2 "
                     onChange={changeUserData}
                     value={formData.rent}
                     required
@@ -204,7 +204,7 @@ const CreateListing = () => {
                     type="text"
                     // onClick={checkBox}
                     name="sale"
-                    className=" h-10 w-40 px-4 py-2 rounded-full  uppercase "
+                    className=" h-10 w-40 px-4 py-2 rounded-full  uppercase bg-transparent border-2 "
                     onChange={changeUserData}
                     value={formData.sale}
                     required
@@ -266,7 +266,7 @@ const CreateListing = () => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-center items-center border-2 gap-5 border-red-200 p-5">
+          <div className="flex flex-col justify-center items-center border-2 gap-5 border-black p-5">
             {formData.imageUrls.length > 0 &&
               formData.imageUrls.map((img, i) => (
                 <div
@@ -304,7 +304,7 @@ const CreateListing = () => {
             ) : (<div className="flex flex-col justify-center items-center">
               <button
                 onClick={uploadImage}
-                className="border-2 bg-blue-500 text-white px-10 py-2 rounded-full text-2xl"
+                className=" bg-blue-500 text-white px-10 py-2 rounded-full text-2xl"
               >
                 Upload
               </button>

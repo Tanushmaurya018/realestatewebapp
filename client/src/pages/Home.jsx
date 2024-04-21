@@ -41,7 +41,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container mx-auto bg-gradient-to-b from-red-200 via-red-300 to-yellow-200 ">
+    <div className="container mx-auto bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900">
       {loading ? (
         <Loader />
       ) : (
@@ -106,7 +106,7 @@ const Home = () => {
             <div className=" flex flex-wrap justify-center items-center ">
               {lists?.map((list) => {
                 return (
-                  <Link to={`/listing/${list._id}`} key={list._id}>
+                  <Link to={`/listing/${list.id}`} key={list.id}>
                     <Card
                       imageUrls={`${list.imageUrls[0]}`}
                       title={`${list.title}`}

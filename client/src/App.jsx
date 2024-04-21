@@ -16,7 +16,7 @@ import Search from "./pages/Search";
 
 function App() {
   return (
-    <div className="bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100">
+    <div className="bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900">
 
       <div className="">
       <Header />

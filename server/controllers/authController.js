@@ -1,95 +1,161 @@
-const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { pool } = require("../db");
 
-const signup = async (req, res) => {
+const signup = (req, res) => {
   const { username, email, password } = req.body;
-  const user = await User.findOne({ email });
 
-  if (user) {
-    return res.json({ message: "This e-mail is already in use" });
-  }
+  // Check if user already exists
+  pool.query("SELECT * FROM users WHERE email = ?", [email], (err, rows) => {
+    if (err) {
+      console.error("Error in signup:", err);
+      return res.status(500).send({ message: "Internal Server Error" });
+    }
 
-  const hashedPassword = bcrypt.hashSync(password, Number(process.env.SALT));
+    if (rows.length > 0) {
+      return res.json({ message: "This e-mail is already in use" });
+    }
 
-  const newUser = new User({
-    username,
-    email,
-    password: hashedPassword,
+    // Hash the password
+    bcrypt.hash(password, Number(process.env.SALT), (err, hashedPassword) => {
+      if (err) {
+        console.error("Error in hashing password:", err);
+        return res.status(500).send({ message: "Internal Server Error" });
+      }
+
+      // Insert new user into the database
+      pool.query(
+        "INSERT INTO users (username, email, userPassword) VALUES (?, ?, ?)",
+        [username, email, hashedPassword],
+        (err) => {
+          if (err) {
+            console.error("Error in inserting user:", err);
+            return res.status(500).send({ message: "Internal Server Error" });
+          }
+
+          return res.send({ message: "User Created" });
+        }
+      );
+    });
   });
-
-  const savedUser = await newUser.save();
-  return res.send({ message: "User Created" });
 };
 
-async function login(req, res) {
+function login(req, res) {
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  // Find user by email
+  pool.query("SELECT * FROM users WHERE email = ?", [email], (err, rows) => {
+    if (err) {
+      console.error("Error in login:", err);
+      return res.status(500).send({ message: "Internal Server Error" });
+    }
 
-  if (!user) {
-    // console.log(user)
-    return res.json({ message: "User doesn't exists" });
-  }
-  const validatePassword = bcrypt.compareSync(password, user.password);
-  if (!validatePassword) {
-    // console.log("Wrong")
-    return res.json({ message: "Wrong credentials" });
-  }
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-  const userWoPassword = {
-    _id: user._id,
-    email: user.email,
-    username: user.username,
-    photoURL:user.photoURL,
+    // Check if rows is not empty and contains the user object
+    if (!rows || !rows.length) {
+      console.log("User not found for email:", email);
+      return res.json({ message: "User doesn't exist" });
+    }
 
-  };
-  return res
-    .cookie("access_token", token,  { expires: new Date(Date.now() + (30*24*3600000)) },{ httpOnly: true })
-    .json({ message: "Logged In successfully", userWoPassword });
-}
+    const user = rows[0]; // Access the first row directly
+    // Validate password
+    const isVerifed = bcrypt.compare(password, user.userPassword);
+    if (!isVerifed) return res.jseon({ message: "Wrong Credentials" });
 
-async function google(req, res) {
-  const { username, email, photoURL } = req.body;
-  const user = await User.findOne({ email });
+    // Generate JWT token
+    const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET);
 
-  if (user) {
-    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
     const userWoPassword = {
-      _id: user._id,
+      _id: user.id,
       email: user.email,
       username: user.username,
-      photoURL:user.photoURL,
+      photoURL: user.photoURL,
     };
 
     return res
-      .cookie("access_token", token, { expires: new Date(Date.now() + (30*24*3600000)) }, { httpOnly: true })
+      .cookie("access_token", token, {
+        expires: new Date(Date.now() + 30 * 24 * 3600000),
+        httpOnly: true,
+      })
       .json({ message: "Logged In successfully", userWoPassword });
-  }
-
-  const password = Math.random().toString(36).substring(2);
-
-  const hashedPassword = bcrypt.hashSync(password, Number(process.env.SALT));
-
-  const newUser = new User({
-    username,
-    email,
-    password: hashedPassword,
-    photoURL,
   });
+}
 
-  const savedUser = await newUser.save();
+function google(req, res) {
+  const { username, email, photoURL } = req.body;
 
-  const token = jwt.sign({ _id: newUser._id }, process.env.TOKEN_SECRET);
-  const userWoPassword = {
-    _id: newUser._id,
-    email: newUser.email,
-    username: newUser.username,
-    photoURL:newUser.photoURL,
-  };
-  
-  return res
-    .cookie("access_token", token, { httpOnly: true })
-    .json({ message: "User Created and Logged In successfully", userWoPassword });
+  // Check if user already exists
+  pool.query("SELECT * FROM users WHERE email = ?", [email], (err, rows) => {
+    if (err) {
+      console.error("Error in google:", err);
+      return res.status(500).send({ message: "Internal Server Error" });
+    }
+
+    if (rows.length > 0) {
+      const user = rows[0];
+      const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET);
+      const userWoPassword = {
+        _id: user.id,
+        email: user.email,
+        username: user.username,
+        photoURL: user.photoURL,
+      };
+
+      return res
+        .cookie("access_token", token, {
+          expires: new Date(Date.now() + 30 * 24 * 3600000),
+          httpOnly: true,
+        })
+        .json({ message: "Logged In successfully", userWoPassword });
+    }
+
+    // Generate random password
+    const password = Math.random().toString(36).substring(2);
+
+    // Hash the password
+    bcrypt.hash(password, Number(process.env.SALT), (err, hashedPassword) => {
+      if (err) {
+        console.error("Error in hashing password:", err);
+        return res.status(500).send({ message: "Internal Server Error" });
+      }
+
+      // Insert new user into the database
+      pool.query(
+        "INSERT INTO users (username, email, userPassword, photoURL) VALUES (?, ?, ?, ?)",
+        [username, email, hashedPassword, photoURL],
+        (err, result) => {
+          if (err) {
+            console.error("Error in inserting user:", err);
+            return res.status(500).send({ message: "Internal Server Error" });
+          }
+
+          const newUser = {
+            id: result.insertId,
+            email,
+            username,
+            photoURL,
+          };
+
+          // Generate JWT token
+          const token = jwt.sign({ _id: newUser.id }, process.env.TOKEN_SECRET);
+          const userWoPassword = {
+            _id: newUser.id,
+            email: newUser.email,
+            username: newUser.username,
+            photoURL: newUser.photoURL,
+          };
+
+          return res
+            .cookie("access_token", token, {
+              expires: new Date(Date.now() + 30 * 24 * 3600000),
+              httpOnly: true,
+            })
+            .json({
+              message: "User Created and Logged In successfully",
+              userWoPassword,
+            });
+        }
+      );
+    });
+  });
 }
 
 const logOut = (req, res) => {

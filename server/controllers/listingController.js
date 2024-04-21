@@ -1,8 +1,7 @@
-const Listing = require("../models/listing");
-const User = require("../models/user");
-// const defaultList = "../defaultList.png";
+const bcrypt = require("bcrypt");
+const { pool } = require("../db");
 
-const createListing = async (req, res) => {
+const createListing = (req, res) => {
   const {
     title,
     description,
@@ -14,97 +13,99 @@ const createListing = async (req, res) => {
     bedroom,
     bathroom,
     regularprice,
+    discountedprice,
     imageUrls,
-    discountedprice,
   } = req.body;
-  const author = req.user;
-  const newListing = new Listing({
-    title: title == "" ? undefined : title,
-    description: description == "" ? undefined : description,
-    address: address == "" ? undefined : address,
-    furnished,
-    parking,
-    rent,
-    sale,
-    bedroom,
-    bathroom,
-    regularprice,
-    discountedprice,
-    imageUrls: imageUrls && imageUrls.length > 0 ? imageUrls : undefined,
-    author,
+  const author_id = req.user._id;
+
+  const queryString = `
+    INSERT INTO listings (
+      title,
+      listingDescription,
+      address,
+      furnished,
+      parking,
+      rent,
+      sale,
+      bedroom,
+      bathroom,
+      regularprice,
+      discountedprice,
+      imageUrls,
+      author_id
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+  const values = [
+    title || null,
+    description || null,
+    address || null,
+    furnished || null,
+    parking || null,
+    rent || null,
+    sale || null,
+    bedroom || null,
+    bathroom || null,
+    regularprice || null,
+    discountedprice || null,
+    JSON.stringify(imageUrls) || null,
+    author_id || null,
+  ];
+
+  pool.query(queryString, values, (error, results) => {
+    if (error) {
+      console.error("Error creating listing:", error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+    res.json({ savedListing: results });
   });
-  // console.log(newListing.imageUrls);
+};
 
-  const savedListing = await newListing.save();
-  const user = await User.find({ _id: author });
-  // console.log(user)
-  // console.log(savedListing)
-  res.json({ savedListing });
-};
-const deleteList = async (req, res) => {
-  await Listing.findByIdAndDelete(req.params.id);
-  const allLists = await Listing.find({});
-  // console.log("Aaa",allLists)
-  res.json({ data: allLists, message: "List Deleted" });
-};
-const getToUpdateList = async (req, res) => {
-  const toUpadateList = await Listing.findById(req.params.id);
-  // console.log("ddd", toUpadateList);
-  res.json(toUpadateList);
-};
-const updateList = async (req, res) => {
-  const list = await Listing.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
+const getList = (req, res) => {
+  const queryString = "SELECT * FROM listings WHERE id = ?";
+  const listingId = req.params.id;
+  pool.query(queryString, [listingId], (error, list) => {
+    if (error) {
+      console.error("Error fetching list:", error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+    // console.log(list)
+    const authorId = list[0]?.author_id;
+
+    pool.query("SELECT * FROM users WHERE id = ?", [authorId], (error, author) => {
+      if (error) {
+        console.error("Error fetching user for list:", error);
+        return res.status(500).json({ message: "Internal Server Error" });
+      }
+      const userWoPassword = {
+        _id: author[0]?.id,
+        email: author[0]?.email,
+        username: author[0]?.username,
+        photoURL: author[0]?.photoURL,
+      };
+      res.json({ list, userWoPassword });
+    });
   });
-  // console.log("fgk", list);
-  res.json({ list });
 };
 
-const getList = async (req, res) => {
-  // console.log(req.params.id)
-  const list = await Listing.findById(req.params.id);
-  const authorId = list.author;
-  // console.log(authorId)
-  const author = await User.findById(authorId);
-  // console.log(author)
+const getAllList = (req, res) => {
+  pool.query("SELECT * FROM listings", (error, allList) => {
+    if (error) {
+      console.error("Error fetching all lists:", error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
 
-  const userWoPassword = {
-    _id: author._id,
-    email: author.email,
-    username: author.username,
-    photoURL: author.photoURL,
-  };
-  // console.log(userWoPassword);
-  return res.json({ list, userWoPassword });
+    res.json({ allList, message: "User Logged In" });
+  });
 };
 
-const getAllList = async (req, res) => {
-  const allList = await Listing.find({});
-  // const user=req.user;
-  // const user = await User.findById(req.user);
+// const getSearchList = (req, res) => {
+//   const { searchTerm, rent, sale, offer, parking, furnished } = req.body;
 
-  // if (!user) {
-  //   return res.json({ allList: null, message: "Not Signed In" });
-  // }
-  //  console.log("asdfd",allList)
-  res.json({ allList, message: "User Logged In" });
-};
-
-const getSearchList=(req,res)=>{
-
-  const {searchTerm,rent,sale,offer,parking,furnished} =req.body;
-
-  
-
-  res.json({message:"helluu"})
-}
+//   res.json({ message: "helluu" });
+// };
 
 module.exports = {
   createListing,
-  deleteList,
-  updateList,
-  getToUpdateList,
   getList,
   getAllList,
-  getSearchList,
 };
